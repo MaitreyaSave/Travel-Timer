@@ -19,7 +19,7 @@
         jar="A:\Android Projects\TravelTimer\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="24.0.2"
-        sha1="5c9d2b5edff8f854ec45d02f5f5d0168cb847338">
+        sha1="004fc9f438c1180f01679e5543d32b86d60363a4">
         <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_1108316d58fe4107c8c8f10727c4272311ee9f01\classes.dex" />
     </item>
     <item
@@ -89,7 +89,7 @@
         jar="A:\Android Projects\TravelTimer\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         revision="24.0.2"
-        sha1="e93c1c69366d9877603c1b86ad7715c9d11c0279">
+        sha1="061a96217a86044b3131af54978127298aaa077e">
         <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_51f4acccb62238aed5def6eb3aecdda73f9c8c9f\classes.dex" />
     </item>
     <item
