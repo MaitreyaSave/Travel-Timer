@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "809332946745",
+    "project_id": "travel-timer"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809332946745:android:5b5f040b4dcd8755",
+        "android_client_info": {
+          "package_name": "com.example.maitreya.traveltimer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809332946745-fbv7vmbgq1oapahh3u6gd9tlph2up7u6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.maitreya.traveltimer",
+            "certificate_hash": "22CDBE3A13CB2F312719FC45843A50A346B054C6"
+          }
+        },
+        {
+          "client_id": "809332946745-3q014p7rh8r0cij3ufkcno7f66gl204p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeAkm1-_xYVtFvJnRESSYuxQXfbv_Vw-Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
