@@ -16,4 +16,14 @@
         android:onClick="sign_In"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/map_home"
+        android:text="@string/title_activity_maps"
+        android:layout_width="wrap_content"
+        android:onClick="mapG"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/sign_in_home" />
+
 </RelativeLayout>

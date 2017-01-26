@@ -20,4 +20,8 @@ public class MainActivity extends Activity{
         Intent intent=new Intent(this,SignInActivity.class);
         startActivity(intent);
     }
+    public void mapG(View v) {
+        Intent intent=new Intent(this,MapsActivity.class);
+        startActivity(intent);
+    }
 }
