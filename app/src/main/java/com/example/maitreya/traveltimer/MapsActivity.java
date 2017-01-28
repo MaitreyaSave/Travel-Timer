@@ -1,5 +1,6 @@
 package com.example.maitreya.traveltimer;
 
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
@@ -24,15 +25,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, GoogleMap.OnMarkerDragListener {
 
     private GoogleMap mMap;
-    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 0;
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
     LatLng latLng;
     Marker currLocationMarker;
-    Marker destLocationMarker;
+    Context ctx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        ctx=this;
     }
 
 
@@ -73,6 +74,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //
         buildGoogleApiClient();
         mMap.setMyLocationEnabled(true);
+
         mGoogleApiClient.connect();
         // Add a marker in Sydney and move the camera
         /*
@@ -80,23 +82,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         */
-        mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
-            @Override
-            public void onMarkerDragStart(Marker marker) {
-
-            }
-
-            @Override
-            public void onMarkerDrag(Marker marker) {
-
-            }
-
-            @Override
-            public void onMarkerDragEnd(Marker marker) {
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
-
-            }
-        });
+        mMap.setOnMarkerDragListener(this);
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -110,8 +96,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        Toast.makeText(this, "onConnected", Toast.LENGTH_SHORT).show();
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        //Toast.makeText(this, "onConnected", Toast.LENGTH_SHORT).show();
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -170,27 +156,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
         currLocationMarker = mMap.addMarker(markerOptions);
         //
-        latLng = new LatLng(location.getLatitude()+1, location.getLongitude()+1);
-        MarkerOptions markerOptions1 = new MarkerOptions();
-        markerOptions1.position(latLng);
-        markerOptions1.title("Dest is here!");
-        markerOptions1.draggable(true);
-        markerOptions1.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
-        //destLocationMarker = mMap.addMarker(markerOptions1);
-        //
-        latLng = new LatLng(location.getLatitude(), location.getLongitude());
         //
 
-        Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
 
         //zoom to current position:
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(latLng).zoom(14).build();
+                .target(latLng).zoom(15).build();
 
         mMap.animateCamera(CameraUpdateFactory
                 .newCameraPosition(cameraPosition));
 
         //If you only need one location, unregister the listener
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+    }
+
+    @Override
+    public void onMarkerDragStart(Marker marker) {
+        LatLng pos=marker.getPosition();
+        //Toast.makeText(this,"Start "+pos,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onMarkerDrag(Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDragEnd(Marker marker) {
+        LatLng pos=marker.getPosition();
+        CameraPosition campos=new CameraPosition.Builder().target(pos).zoom(15).build();
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(campos));
+        Toast.makeText(this,"End "+pos,Toast.LENGTH_SHORT).show();
     }
 }
