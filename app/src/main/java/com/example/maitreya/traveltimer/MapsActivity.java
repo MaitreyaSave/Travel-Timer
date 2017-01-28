@@ -27,10 +27,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private GoogleMap mMap;
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 0;
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
     LatLng latLng;
     Marker currLocationMarker;
+    Marker destLocationMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +83,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
             public void onMarkerDragStart(Marker marker) {
-                /*
-                LatLng p=marker.getPosition();
-                double lat=p.latitude+5;
-                double lon=p.longitude;
-                marker.setPosition(new LatLng(lat,lon));
-                */
+
             }
 
             @Override
@@ -172,6 +169,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markerOptions.draggable(true);
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
         currLocationMarker = mMap.addMarker(markerOptions);
+        //
+        latLng = new LatLng(location.getLatitude()+1, location.getLongitude()+1);
+        MarkerOptions markerOptions1 = new MarkerOptions();
+        markerOptions1.position(latLng);
+        markerOptions1.title("Dest is here!");
+        markerOptions1.draggable(true);
+        markerOptions1.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+        //destLocationMarker = mMap.addMarker(markerOptions1);
+        //
+        latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        //
 
         Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
 
