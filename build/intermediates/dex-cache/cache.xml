@@ -30,30 +30,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gass\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="b15f898c9047f9d612a63000126b485dd024eaac">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gass-9.4.0_9d3ab3fe75350502bbf1dc103b7672738a7079f4\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\9.4.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
         sha1="7bc6ea2bcfd6de4b7085e0f3a01616c5c8e0e2ad">
         <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-safetynet-9.4.0_cfc04ae4a750abaf6601df7b102c226ce0283758\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager-api\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="7ea53c4458b80e8ea71f7fd6831fa184c501377b">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tagmanager-api-9.4.0_b2d566159ae4f6cd1e0e2e31a573064ddcabf62d\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -75,24 +57,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.firebase\firebase-crash\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="b9d48baf96c7e187991a9befa833bebd181960a9">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-crash-9.4.0_aa05fffa6a67ddc436fbb70f200683ac8ae4a0af\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="beac40bcc8a320a896dd15f5109cfcaea5e1e0e3">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-24.2.0_bce414f52a40a3a168bfdeb3ec50a9e4d459fdf4\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\9.4.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -111,24 +75,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="88848548ab56d4fbf3d2d1b0c85bf1ff9b4c1f4b">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-9.4.0_cf823867cd8c213cfe4434eddc24952a6dd020cd\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="736d8893fb702f128a153c9d87c9c29724d37872">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appinvite-9.4.0_24057cefd11c822828e3ac0c07fd1f6aeec53337\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage\9.4.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -138,39 +84,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.0\jars\libs\internal_impl-24.2.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="045be695d968dd707691cc55d23746dbf8cf569a">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.0_bc8fed437e77f0b123e849a17d9824f1ce72f34f\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="d49118ba67a101c4895f0581f17142cba85b330b">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-panorama-9.4.0_bbce4738e92a50c639d94fdd55bd02f96cd15393\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth-base\9.4.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
         sha1="58c9f5ee817fdb8b658fd7455fadfb74119f7ee9">
         <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-auth-base-9.4.0_54ae3fe06c24e09985919e97c045cd1c2488615f\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="e6e2251f3d3abf4eecd6bf6919d41fc7af497852">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-games-9.4.0_abd257d2e89711519fca35e40bbd90664e934c5a\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -192,84 +111,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="0b060160e7daee343f5315b3da91b0ff2d7eed89">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-location-9.4.0_4944626d4875150075ed817523803a79dc591eea\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.firebase\firebase-config\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="dab6944860c986980dcc6002a5ca2f127b587317">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-config-9.4.0_d869254b582bd84d015aa6bd04a07ab3ca803672\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="60b285ad00712d950095a897fbfc0a6e72bca3e6">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_51f4acccb62238aed5def6eb3aecdda73f9c8c9f\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="45f5eda279825ff470e3f51019d374d1ef61e000">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-24.2.0_65f20716657ec5c7c6ebf2bd77a63e7346e50655\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="618485fef3ebe12127f7622abbc9b5b39057b5c2">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-basement-9.4.0_3ab5a8f693ee638321c6d934a2a8e4657bea5ee8\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="c84e216d9bf618464d6b9564d71d9a656433e7c4">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-24.2.0_d84f9116bb830d6fa781f5f8130a5a32f221c257\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\9.4.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
         sha1="dd51b31890731591729f046d7a09c4fe4e483ed1">
         <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-plus-9.4.0_4a12122caca7a5e6f331533049ada6efab198589\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="d463d8eec1e6c1feef2cec6675ccb47e37c12ee1">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-9.4.0_9f338bd5577b423fcb4894e1b83018bc95e2d2b6\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database-connection\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="0e4d53465cc141bec58f18a894e4c4e80633fa32">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-connection-9.4.0_bcda75b8c2d8fe83484496c43edc6918550b78ed\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -282,75 +129,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage-common\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="c8f5d56f8f8a287c95e02c542baade138a378048">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-storage-common-9.4.0_1714ff53459b5fc49d5099c3062ec46792822a72\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="954697ee6ea7bdd596babf4f70e8b7a17ca7649e">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wallet-9.4.0_879ee698195688f2f423f8cb450f3180a75a96e7\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\23.0.0\jars\libs\internal_impl-23.0.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="03d38bb042efe3e5ce27ba66b729a9523c36d8fe">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.0.0_60fed959da7da57e312bfffdf3dde7e5a2d1f0c9\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\9.4.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
         sha1="a432629397351d3ec7f27a23d258b229b81af08f">
         <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-9.4.0_814ebc9e1762fc4dedc612a76c6e82cafaa129d3\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics-impl\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="a440fb3fec30ff925e9f601cc458fb6671834cb2">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-impl-9.4.0_5fffe4a3b80adde457433ee95d65f6da85767c32\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="f9b41622897665678d31d78e57a361cb0cebcb0d">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-24.2.0_0ee07e1fd73cf3f53e626328f0caf0a49cef1162\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="c10df7344e31161852c20bb8143fc37319aa10ec">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appindexing-9.4.0_0a872dfa78bb913e1f0825ef35de7a337fba0c5d\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="f3ee23ef25c9a8fe3d40246d0b7097267963a612">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-24.2.0_cdf5e69ae164d6d5b75093c70039ef045f0fa505\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -390,48 +174,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.0\jars\libs\internal_impl-24.2.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="771b3cc0e597b54da25f8086ba73180c59c6bc71">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.0_54f5581a435a011e42e6cb7e969a43634c7bcf04\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-places\9.4.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
         sha1="e35002351f2d415093a9b564652d4b56be6a0593">
         <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-places-9.4.0_601adfd9804c245ecfbdd2d0e1d459a74ac0003a\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="fcc945a86ebcbf527429acb8216ec7dae2c06417">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-24.2.0_152009f7d26654eabd92c64a0e10ea9ba49b0348\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="18b5697c65c4fe5b7381613b8b8ae9ac52e26fa7">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-common-9.4.0_4c467333b1eef5cdee5a7c0628e12f251e9f7466\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="84bf369090a8f7e293817efbd6ccf31ada1be32b">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-9.4.0_007f35fc1be262001055a1619d1005a787cabb95\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -484,7 +232,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="61dd8ef8d5b69e04fccb05dfb966d29d6c6bfda9">
+        sha1="65122d58591580d2390559db30c5ef2c225194bd">
         <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_1108316d58fe4107c8c8f10727c4272311ee9f01\classes.dex" />
     </item>
     <item
@@ -495,6 +243,285 @@
         revision="24.0.2"
         sha1="72eacac37fc64e95d53abd2a041bf81a952d8615">
         <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-contextmanager-9.4.0_c1e7e8121d977e76f796589012e07cfc18ffecd7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.0\jars\libs\internal_impl-24.2.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="60d7b23621d31e6f42f4f76f16af467e57a20cda">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.0_ccd556bba0d81c6301519515009534a73b447e9c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="3dee4ce5844d39d843d503fb8fe04e51e5bfffac">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-base-9.4.0_a523b9e8d85789395f1064632ba6e5c6cb7784e8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\Installed\AndroidSDK\extras\android\m2repository\com\android\support\support-annotations\24.2.0\support-annotations-24.2.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="6be858a75633b1f0a2d24cad740db57775cb6871">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-24.2.0_16d06c50ebb5e3f2723821ee4127171e1feff650\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gass\9.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="b15f898c9047f9d612a63000126b485dd024eaac">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gass-9.4.0_9d3ab3fe75350502bbf1dc103b7672738a7079f4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager-api\9.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7ea53c4458b80e8ea71f7fd6831fa184c501377b">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tagmanager-api-9.4.0_b2d566159ae4f6cd1e0e2e31a573064ddcabf62d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.firebase\firebase-crash\9.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="b9d48baf96c7e187991a9befa833bebd181960a9">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-crash-9.4.0_aa05fffa6a67ddc436fbb70f200683ac8ae4a0af\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="beac40bcc8a320a896dd15f5109cfcaea5e1e0e3">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-24.2.0_bce414f52a40a3a168bfdeb3ec50a9e4d459fdf4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics\9.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="88848548ab56d4fbf3d2d1b0c85bf1ff9b4c1f4b">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-9.4.0_cf823867cd8c213cfe4434eddc24952a6dd020cd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\9.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="736d8893fb702f128a153c9d87c9c29724d37872">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appinvite-9.4.0_24057cefd11c822828e3ac0c07fd1f6aeec53337\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.0\jars\libs\internal_impl-24.2.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="045be695d968dd707691cc55d23746dbf8cf569a">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.0_bc8fed437e77f0b123e849a17d9824f1ce72f34f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\9.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d49118ba67a101c4895f0581f17142cba85b330b">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-panorama-9.4.0_bbce4738e92a50c639d94fdd55bd02f96cd15393\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\9.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e6e2251f3d3abf4eecd6bf6919d41fc7af497852">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-games-9.4.0_abd257d2e89711519fca35e40bbd90664e934c5a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\9.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0b060160e7daee343f5315b3da91b0ff2d7eed89">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-location-9.4.0_4944626d4875150075ed817523803a79dc591eea\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.firebase\firebase-config\9.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="dab6944860c986980dcc6002a5ca2f127b587317">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-config-9.4.0_d869254b582bd84d015aa6bd04a07ab3ca803672\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="3a76f4e7e51fa70e48468de30e9b2573e6e32d5f">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_51f4acccb62238aed5def6eb3aecdda73f9c8c9f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="45f5eda279825ff470e3f51019d374d1ef61e000">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-24.2.0_65f20716657ec5c7c6ebf2bd77a63e7346e50655\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\9.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="618485fef3ebe12127f7622abbc9b5b39057b5c2">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-basement-9.4.0_3ab5a8f693ee638321c6d934a2a8e4657bea5ee8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="c84e216d9bf618464d6b9564d71d9a656433e7c4">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-24.2.0_d84f9116bb830d6fa781f5f8130a5a32f221c257\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\9.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d463d8eec1e6c1feef2cec6675ccb47e37c12ee1">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-9.4.0_9f338bd5577b423fcb4894e1b83018bc95e2d2b6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database-connection\9.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0e4d53465cc141bec58f18a894e4c4e80633fa32">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-connection-9.4.0_bcda75b8c2d8fe83484496c43edc6918550b78ed\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.firebase\firebase-storage-common\9.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="c8f5d56f8f8a287c95e02c542baade138a378048">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-storage-common-9.4.0_1714ff53459b5fc49d5099c3062ec46792822a72\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\9.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="954697ee6ea7bdd596babf4f70e8b7a17ca7649e">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wallet-9.4.0_879ee698195688f2f423f8cb450f3180a75a96e7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\23.0.0\jars\libs\internal_impl-23.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="03d38bb042efe3e5ce27ba66b729a9523c36d8fe">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.0.0_60fed959da7da57e312bfffdf3dde7e5a2d1f0c9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics-impl\9.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="a440fb3fec30ff925e9f601cc458fb6671834cb2">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-analytics-impl-9.4.0_5fffe4a3b80adde457433ee95d65f6da85767c32\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="f9b41622897665678d31d78e57a361cb0cebcb0d">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-24.2.0_0ee07e1fd73cf3f53e626328f0caf0a49cef1162\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\9.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="c10df7344e31161852c20bb8143fc37319aa10ec">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appindexing-9.4.0_0a872dfa78bb913e1f0825ef35de7a337fba0c5d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="f3ee23ef25c9a8fe3d40246d0b7097267963a612">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-24.2.0_cdf5e69ae164d6d5b75093c70039ef045f0fa505\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.0\jars\libs\internal_impl-24.2.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="771b3cc0e597b54da25f8086ba73180c59c6bc71">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.0_54f5581a435a011e42e6cb7e969a43634c7bcf04\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="fcc945a86ebcbf527429acb8216ec7dae2c06417">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-24.2.0_152009f7d26654eabd92c64a0e10ea9ba49b0348\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="18b5697c65c4fe5b7381613b8b8ae9ac52e26fa7">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-common-9.4.0_4c467333b1eef5cdee5a7c0628e12f251e9f7466\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database\9.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="84bf369090a8f7e293817efbd6ccf31ada1be32b">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-9.4.0_007f35fc1be262001055a1619d1005a787cabb95\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -561,15 +588,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.0\jars\libs\internal_impl-24.2.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="60d7b23621d31e6f42f4f76f16af467e57a20cda">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.0_ccd556bba0d81c6301519515009534a73b447e9c\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.firebase\firebase-auth-common\9.4.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -585,24 +603,6 @@
         revision="24.0.2"
         sha1="3b7173b3df4c7029699919414400041f64519e34">
         <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-iid-9.4.0_379788a0df4d82daf2c14409617dfa882a14e612\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="3dee4ce5844d39d843d503fb8fe04e51e5bfffac">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-base-9.4.0_a523b9e8d85789395f1064632ba6e5c6cb7784e8\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\Installed\AndroidSDK\extras\android\m2repository\com\android\support\support-annotations\24.2.0\support-annotations-24.2.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="6be858a75633b1f0a2d24cad740db57775cb6871">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-24.2.0_16d06c50ebb5e3f2723821ee4127171e1feff650\classes.dex" />
     </item>
 
 </items>

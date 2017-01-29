@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ public class MainActivity extends Activity {
     static final int MAP_DESTINATION_REQ = 1;  // The request code for source
     boolean destinationYN=false;
     //Delete below
-    TextView v1,v2;
+    TextView v1,v2,v3;
     //
     LatLng source,destination;
     LocationManager locationManager;
@@ -33,6 +34,7 @@ public class MainActivity extends Activity {
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         v1= (TextView) findViewById(R.id.textView);
         v2=(TextView) findViewById(R.id.textView2);
+        v3=(TextView) findViewById(R.id.textView3);
     }
     private void showGPSDisabledAlertToUser(){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -146,4 +148,24 @@ public class MainActivity extends Activity {
             }
         }
     }
+    public void calDis(View v){
+        if(source!=null&&destination!=null) {
+            Location s = new Location("S");
+            Location d = new Location("D");
+            s.setLatitude(source.latitude);
+            s.setLongitude(source.longitude);
+            d.setLongitude(destination.longitude);
+            d.setLatitude(destination.latitude);
+            float disf = s.distanceTo(d);
+            int dis= (int) disf;
+            v3.setText("Distance = " + dis/1000.0+ " kms");
+        }
+        else {
+            if(source==null)
+                Toast.makeText(this,"Source not selected!",Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(this,"Destination not selected!",Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
