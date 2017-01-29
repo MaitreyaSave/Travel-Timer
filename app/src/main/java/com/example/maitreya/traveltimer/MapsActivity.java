@@ -1,6 +1,7 @@
 package com.example.maitreya.traveltimer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -28,9 +30,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, GoogleMap.OnMarkerDragListener {
 
     private GoogleMap mMap;
+    private LatLng markerLatLng;
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
-    LatLng latLng;
     Marker currLocationMarker;
     Context ctx;
 
@@ -112,9 +114,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (mLastLocation != null) {
             //place marker at current position
             //mMap.clear();
-            latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+            markerLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
             MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(latLng);
+            markerOptions.position(markerLatLng);
             markerOptions.title("Current Position");
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
             currLocationMarker = mMap.addMarker(markerOptions);
@@ -148,9 +150,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (currLocationMarker != null) {
             currLocationMarker.remove();
         }
-        latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        markerLatLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
+        markerOptions.position(markerLatLng);
         markerOptions.title("Maitreya is here!");
         markerOptions.draggable(true);
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
@@ -162,7 +164,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //zoom to current position:
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(latLng).zoom(15).build();
+                .target(markerLatLng).zoom(15).build();
 
         mMap.animateCamera(CameraUpdateFactory
                 .newCameraPosition(cameraPosition));
@@ -184,9 +186,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onMarkerDragEnd(Marker marker) {
-        LatLng pos=marker.getPosition();
-        CameraPosition campos=new CameraPosition.Builder().target(pos).zoom(15).build();
+        markerLatLng =marker.getPosition();
+        CameraPosition campos=new CameraPosition.Builder().target(markerLatLng).zoom(15).build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(campos));
-        Toast.makeText(this,"End "+pos,Toast.LENGTH_SHORT).show();
     }
+    public void sourceOk(View v) {
+        Intent intent=new Intent();
+        intent.putExtra("marker_latlng", markerLatLng);
+        setResult(RESULT_OK,intent);
+        finish();
+    }
+    public void sourceCancel(View v) {
+        Toast.makeText(this,"Cancel",Toast.LENGTH_SHORT).show();
+        setResult(RESULT_CANCELED);
+        finish();
+    }
+
 }

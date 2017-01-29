@@ -5,4 +5,28 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.maitreya.traveltimer.MapsActivity" />
+    tools:context="com.example.maitreya.traveltimer.MapsActivity">
+    <Button
+        android:id="@+id/source_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"
+        android:text="@string/ok_button"
+        android:padding="10dp"
+        android:layout_marginTop="20dp"
+        android:onClick="sourceOk"
+        android:paddingRight="10dp"/>
+    <Button
+        android:id="@+id/destination_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:text="@string/cancel_button"
+        android:padding="10dp"
+        android:layout_marginTop="60dp"
+        android:onClick="sourceCancel"
+        android:paddingRight="10dp"
+        />
+
+</fragment>
+

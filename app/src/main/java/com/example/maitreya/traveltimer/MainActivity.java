@@ -11,16 +11,28 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
 
 public class MainActivity extends Activity {
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
+    static final int MAP_SOURCE_REQ = 0;  // The request code for source
+    static final int MAP_DESTINATION_REQ = 1;  // The request code for source
+    boolean destinationYN=false;
+    //Delete below
+    TextView v1,v2;
+    //
+    LatLng source,destination;
     LocationManager locationManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        v1= (TextView) findViewById(R.id.textView);
+        v2=(TextView) findViewById(R.id.textView2);
     }
     private void showGPSDisabledAlertToUser(){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -45,13 +57,13 @@ public class MainActivity extends Activity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void mapG(View v) {
+    public void mapSD(View v) {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     MY_PERMISSIONS_REQUEST_LOCATION);
         }
         else{
-            Toast.makeText(this,"hasPermission",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,"hasPermission",Toast.LENGTH_SHORT).show();
             /*
             Intent callGPSSettingIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             int x=0;
@@ -61,12 +73,25 @@ public class MainActivity extends Activity {
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
                 Toast.makeText(this, "GPS is Enabled in your device", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, MapsActivity.class);
-                startActivity(intent);
+                if(destinationYN)
+                    startActivityForResult(intent,MAP_DESTINATION_REQ);
+                else
+                    startActivityForResult(intent,MAP_SOURCE_REQ);
             }
             else{
                 showGPSDisabledAlertToUser();
             }
         }
+    }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void mapD(View v){
+        destinationYN=true;
+        mapSD(v);
+    }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void mapS(View v){
+        destinationYN=false;
+        mapSD(v);
     }
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -84,7 +109,7 @@ public class MainActivity extends Activity {
                     if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
                         Toast.makeText(this, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(this, MapsActivity.class);
-                        startActivity(intent);
+                        startActivityForResult(intent,MAP_SOURCE_REQ);
                     }
                     else{
                         showGPSDisabledAlertToUser();
@@ -98,6 +123,27 @@ public class MainActivity extends Activity {
 
             // other 'case' lines to check for other
             // permissions this app might request
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == MAP_SOURCE_REQ) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                Bundle b=data.getExtras();
+                source= (LatLng) b.get("marker_latlng");
+                v1.setText("source "+source);
+                //Toast.makeText(this,"source "+source,Toast.LENGTH_SHORT).show();
+            }
+        }
+        else if(requestCode == MAP_DESTINATION_REQ){
+            if(resultCode == RESULT_OK){
+                Bundle b=data.getExtras();
+                destination= (LatLng) b.get("marker_latlng");
+                v2.setText("destination "+destination);
+                //Toast.makeText(this,"destination "+destination,Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
