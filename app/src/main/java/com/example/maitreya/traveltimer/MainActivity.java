@@ -1,17 +1,27 @@
 package com.example.maitreya.traveltimer;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +33,11 @@ public class MainActivity extends Activity {
     static final int MAP_DESTINATION_REQ = 1;  // The request code for source
     boolean destinationYN=false;
     //Delete below
-    TextView v1,v2,v3;
+    TextView v1,v2,v3,v4;
     //
+    Vibrator v;
+    float alarm_dis,actual_dis;
+    static MediaPlayer mMediaPlayer;
     LatLng source,destination;
     LocationManager locationManager;
     @Override
@@ -35,6 +48,8 @@ public class MainActivity extends Activity {
         v1= (TextView) findViewById(R.id.textView);
         v2=(TextView) findViewById(R.id.textView2);
         v3=(TextView) findViewById(R.id.textView3);
+        v4=(TextView) findViewById(R.id.textView4);
+        mMediaPlayer=new MediaPlayer();
     }
     private void showGPSDisabledAlertToUser(){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -156,7 +171,7 @@ public class MainActivity extends Activity {
             s.setLongitude(source.longitude);
             d.setLongitude(destination.longitude);
             d.setLatitude(destination.latitude);
-            float disf = s.distanceTo(d);
+            float disf = actual_dis= s.distanceTo(d);
             int dis= (int) disf;
             v3.setText("Distance = " + dis/1000.0+ " kms");
         }
@@ -167,5 +182,91 @@ public class MainActivity extends Activity {
                 Toast.makeText(this,"Destination not selected!",Toast.LENGTH_SHORT).show();
         }
     }
+    public  void  ringButton(View v){
+        ring();
+    }
+    public void ring(){
+        //
+        // Get instance of Vibrator from current Context
+        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
+        // Start without a delay
+        // Vibrate for 100 milliseconds
+        // Sleep for 1000 milliseconds
+        long[] pattern = {0, 1000, 1000};
+
+        // The '0' here means to repeat indefinitely
+        // '0' is actually the index at which the pattern keeps repeating from (the start)
+        // To repeat the pattern from any other point, you could increase the index, e.g. '1'
+        //v.vibrate(pattern, 0);
+        //
+        try {
+            Uri alert =  RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            if(!mMediaPlayer.isPlaying()) {
+                mMediaPlayer = new MediaPlayer();
+                v.vibrate(pattern, 0);
+            }
+            mMediaPlayer.setDataSource(this, alert);
+            final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+            if (audioManager.getStreamVolume(AudioManager.STREAM_RING) != 0) {
+                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+                mMediaPlayer.setLooping(true);
+                mMediaPlayer.prepare();
+                mMediaPlayer.start();
+            }
+        } catch(Exception e) {
+        }
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Turn off Alarm?")
+                .setCancelable(false)
+                .setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int id){
+                                mMediaPlayer.stop();
+                                v.cancel();
+                            }
+                        });
+        alertDialogBuilder.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+    }
+    public void setAlarmDistance(View v){
+        final Dialog dialog = new Dialog(this);
+        LayoutInflater li = getLayoutInflater();
+        View v1 = li.inflate(R.layout.distance_list, null, false);
+        dialog.setContentView(v1);
+        dialog.show();
+        RadioGroup rg = (RadioGroup) v1.findViewById(R.id.radioGroup1);
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch(checkedId){
+                    case R.id.radioButton500m:
+                        alarm_dis=500;
+                        v4.setText("500 m "+(actual_dis-alarm_dis));
+                        break;
+                    case R.id.radioButton1km:
+                        alarm_dis=1000;
+                        v4.setText("1 km "+(actual_dis-alarm_dis));
+                        break;
+                    case R.id.radioButton2km:
+                        alarm_dis=2000;
+                        v4.setText("2 km "+(actual_dis-alarm_dis));
+                        break;
+                    case R.id.radioButton5km:
+                        alarm_dis=5000;
+                        v4.setText("5 km "+(actual_dis-alarm_dis));
+                        break;
+                }
+                dialog.cancel();
+                if(actual_dis-alarm_dis<=0)
+                    ring();
+            }
+        });
+    }
 }

@@ -67,4 +67,33 @@
         android:layout_alignTop="@+id/calc_ETA"
         android:layout_alignStart="@+id/textView2" />
 
+    <Button
+        android:text="Set Alarm Distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:layout_below="@+id/calc_ETA"
+        android:layout_alignStart="@+id/ring"
+        android:onClick="setAlarmDistance"
+        android:layout_marginTop="14dp" />
+
+    <Button
+        android:text="Ring"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ring"
+        android:onClick="ringButton"
+        android:layout_below="@+id/button3"
+        android:layout_alignStart="@+id/calc_ETA"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/button3"
+        android:layout_toEndOf="@+id/button3"
+        android:layout_marginStart="13dp"
+        android:id="@+id/textView4" />
+
 </RelativeLayout>

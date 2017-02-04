@@ -34,6 +34,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
     Marker currLocationMarker;
+    MarkerOptions currMarkerOptions;
     Context ctx;
 
     @Override
@@ -85,6 +86,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         */
         mMap.setOnMarkerDragListener(this);
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+
+            @Override
+            public void onMapClick(LatLng latlng) {
+                // TODO Auto-generated method stub
+
+                if (currLocationMarker != null) {
+                    currLocationMarker.remove();
+                }
+                markerLatLng=latlng;
+                currMarkerOptions.position(latlng);
+                currLocationMarker = mMap.addMarker(currMarkerOptions);
+                CameraPosition campos=new CameraPosition.Builder().target(markerLatLng).zoom(15).build();
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(campos));
+            }
+        });
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -151,12 +168,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             currLocationMarker.remove();
         }
         markerLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(markerLatLng);
-        markerOptions.title("Maitreya is here!");
-        markerOptions.draggable(true);
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-        currLocationMarker = mMap.addMarker(markerOptions);
+        currMarkerOptions = new MarkerOptions();
+        currMarkerOptions.position(markerLatLng);
+        currMarkerOptions.title("Maitreya is here!");
+        currMarkerOptions.draggable(true);
+        currMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+        currLocationMarker = mMap.addMarker(currMarkerOptions);
         //
         //
 
@@ -201,5 +218,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setResult(RESULT_CANCELED);
         finish();
     }
-
 }

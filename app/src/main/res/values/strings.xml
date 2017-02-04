@@ -49,9 +49,17 @@
     <string name="map_destination">Destination</string>
     <string name="map_alarm">Set Alarm</string>
 
+    <!-- Button Names on Main -->
+    <string name="set_marker">Set Marker</string>
     <!-- Ok and Cancel Button Names -->
     <string name="ok_button">Ok</string>
     <string name="cancel_button">Cancel</string>
+
+    <!-- Distance Values -->
+    <string name="meter500">500 meters</string>
+    <string name="km1">1 kilometer</string>
+    <string name="km2">2 kilometers</string>
+    <string name="km5">5 kilometers</string>
 
     <!-- To be deleted later strings -->
     <string name="calculate_distance">Calculate Distance</string>
