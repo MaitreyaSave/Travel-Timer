@@ -51,6 +51,8 @@
 
     <!-- Button Names on Main -->
     <string name="set_marker">Set Marker</string>
+    <string name="startBLS">Start</string>
+    <string name="stopBLS">Stop</string>
     <!-- Ok and Cancel Button Names -->
     <string name="ok_button">Ok</string>
     <string name="cancel_button">Cancel</string>

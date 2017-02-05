@@ -484,7 +484,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="5cd70d390006d7a8828c6ccfa7653b692f0ec969">
+        sha1="cb9f3aaf41a14b1ad3c5d32f7b08d9198ad97986">
         <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_1108316d58fe4107c8c8f10727c4272311ee9f01\classes.dex" />
     </item>
     <item

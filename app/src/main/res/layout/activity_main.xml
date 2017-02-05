@@ -96,4 +96,32 @@
         android:layout_marginStart="13dp"
         android:id="@+id/textView4" />
 
+    <Button
+        android:text="@string/startBLS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ring"
+        android:layout_alignStart="@+id/ring"
+        android:layout_marginTop="21dp"
+        android:onClick="startBLS"
+        android:id="@+id/start_BLS" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/start_BLS"
+        android:id="@+id/textView5"
+        android:layout_alignEnd="@+id/textView4" />
+
+    <Button
+        android:text="@string/stopBLS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/start_BLS"
+        android:layout_alignStart="@+id/start_BLS"
+        android:layout_marginTop="16dp"
+        android:onClick="stopBLS"
+        android:id="@+id/stop_BLS" />
+
 </RelativeLayout>
