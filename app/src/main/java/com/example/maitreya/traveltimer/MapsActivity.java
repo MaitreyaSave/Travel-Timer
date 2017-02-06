@@ -90,7 +90,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onMapClick(LatLng latlng) {
-                // TODO Auto-generated method stub
 
                 if (currLocationMarker != null) {
                     currLocationMarker.remove();
@@ -192,7 +191,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onMarkerDragStart(Marker marker) {
-        LatLng pos=marker.getPosition();
+        //LatLng pos=marker.getPosition();
         //Toast.makeText(this,"Start "+pos,Toast.LENGTH_SHORT).show();
     }
 

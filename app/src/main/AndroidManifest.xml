@@ -40,9 +40,6 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"></activity>
         <service android:name=".BackgroundLocationService" android:process=":bg_location_service" />
-        <receiver android:name=".MyIntentRec"
-            android:enabled="true" >
-        </receiver>
     </application>
 
 </manifest>

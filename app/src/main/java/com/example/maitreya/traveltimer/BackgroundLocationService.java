@@ -9,7 +9,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -19,6 +18,7 @@ import android.widget.Toast;
 
 public class BackgroundLocationService extends Service {
     private static final String TAG = "TESTBLS";
+    final static String MY_ACTION = "MY_ACTION";
     //delete
     Context ctx=this;
     //
@@ -136,7 +136,7 @@ public class BackgroundLocationService extends Service {
         Bundle b = new Bundle();
         b.putParcelable("Location", l);
         intent.putExtra("Location", b);
-        intent.setClass(this,MyIntentRec.class);
+        intent.setAction(MY_ACTION);
         Toast.makeText(this,"Sent "+l.getLatitude(),Toast.LENGTH_SHORT).show();
         this.sendBroadcast(intent);
         //LocalBroadcastManager.getInstance(this).sendBroadcast(intent);

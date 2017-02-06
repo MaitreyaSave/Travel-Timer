@@ -1,7 +1,6 @@
 package com.example.maitreya.traveltimer;
 
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,37 +12,21 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.plus.Plus;
-
-import java.text.DateFormat;
-import java.util.Date;
-
-import static com.google.android.gms.plus.Plus.SCOPE_PLUS_LOGIN;
 
 public class MainActivity extends Activity {
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
@@ -60,25 +43,7 @@ public class MainActivity extends Activity {
     static MediaPlayer mMediaPlayer;
     LatLng source, destination, currentLocation;
     LocationManager locationManager;
-    //
-    /*
-    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            // Get extra data included in the Intent
-            Toast.makeText(context,"Received",Toast.LENGTH_SHORT).show();
-            String message = intent.getStringExtra("Status");
-            Bundle b = intent.getBundleExtra("Location");
-            Location lastKnownLoc = b.getParcelable("Location");
-            if (lastKnownLoc != null) {
-                currentLocation=new LatLng(lastKnownLoc.getLatitude(),lastKnownLoc.getLongitude());
-                Toast.makeText(context,message+"",Toast.LENGTH_SHORT).show();
-            }
-
-        }
-    };
-    */
-    //
+    MyReceiver myReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,10 +56,6 @@ public class MainActivity extends Activity {
         v4 = (TextView) findViewById(R.id.textView4);
         v5 = (TextView) findViewById(R.id.textView5);
         mMediaPlayer = new MediaPlayer();
-        /*
-        LocalBroadcastManager.getInstance(this).registerReceiver(
-                mMessageReceiver, new IntentFilter("GPSLocationUpdates"));
-                */
 }
 
     private void showGPSDisabledAlertToUser() {
@@ -164,12 +125,6 @@ public class MainActivity extends Activity {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    /*
-                    Toast.makeText(this,"onReq",Toast.LENGTH_SHORT).show();
-                    Intent callGPSSettingIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-
-                    this.startActivityForResult(callGPSSettingIntent,x);
-                    */
                     if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                         Toast.makeText(this, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(this, MapsActivity.class);
@@ -209,16 +164,18 @@ public class MainActivity extends Activity {
             }
         }
     }
-
-    public void calDis(View v) {
+    public void calDis(View v){
+        calculateDistance(source,destination);
+    }
+    public void calculateDistance(LatLng s,LatLng d) {
         if (source != null && destination != null) {
-            Location s = new Location("S");
-            Location d = new Location("D");
-            s.setLatitude(source.latitude);
-            s.setLongitude(source.longitude);
-            d.setLongitude(destination.longitude);
-            d.setLatitude(destination.latitude);
-            float disf = actual_dis = s.distanceTo(d);
+            Location s1 = new Location("S");
+            Location d1 = new Location("D");
+            s1.setLatitude(s.latitude);
+            s1.setLongitude(s.longitude);
+            d1.setLongitude(d.longitude);
+            d1.setLatitude(d.latitude);
+            float disf = actual_dis = s1.distanceTo(d1);
             int dis = (int) disf;
             v3.setText("Distance = " + dis / 1000.0 + " kms");
         } else {
@@ -312,31 +269,46 @@ public class MainActivity extends Activity {
                         break;
                 }
                 dialog.cancel();
-                if (actual_dis - alarm_dis <= 0)
+                if (actual_dis <= alarm_dis)
                     ring();
             }
         });
     }
 
     public void startBLS(View v) {
+        //
+        myReceiver = new MyReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(BackgroundLocationService.MY_ACTION);
+        registerReceiver(myReceiver, intentFilter);
+        //
         Intent intent=new Intent(this,BackgroundLocationService.class);
         global=intent;
         startService(intent);
         //
-        //LocalBroadcastManager.getInstance(this).registerReceiver(
-          //      mMessageReceiver, new IntentFilter("GPSLocationUpdates"));
-        //
-        /*
-        Intent i=getIntent();
-        Bundle b=i.getBundleExtra("Location");
-        Location l= b.getParcelable("Location");
-        currentLocation=new LatLng(l.getLatitude(),l.getLongitude());
-        */
-        //
-        v5.setText("Current = " + currentLocation);
     }
     public void stopBLS(View v){
+        unregisterReceiver(myReceiver);
         stopService(global);
         Toast.makeText(this,"Stopped Service",Toast.LENGTH_SHORT).show();
+    }
+    private class MyReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context arg0, Intent arg1) {
+
+            Bundle b=arg1.getBundleExtra("Location");
+            Location l= b.getParcelable("Location");
+            currentLocation=new LatLng(l.getLatitude(),l.getLongitude());
+            Toast.makeText(ctx,
+                    "Triggered by Service!\n"
+                            + "Data passed: " + currentLocation,
+                    Toast.LENGTH_SHORT).show();
+            v5.setText("Current = " + currentLocation);
+            calculateDistance(currentLocation,destination);
+            if (actual_dis <= alarm_dis)
+                ring();
+        }
+
     }
 }
