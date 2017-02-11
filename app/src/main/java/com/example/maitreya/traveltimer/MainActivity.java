@@ -277,17 +277,24 @@ public class MainActivity extends Activity {
 
     public void startBLS(View v) {
         //
-        myReceiver = new MyReceiver();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(BackgroundLocationService.MY_ACTION);
-        registerReceiver(myReceiver, intentFilter);
-        //
-        Intent intent=new Intent(this,BackgroundLocationService.class);
-        global=intent;
-        startService(intent);
-        //
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            myReceiver = new MyReceiver();
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(BackgroundLocationService.MY_ACTION);
+            registerReceiver(myReceiver, intentFilter);
+            //
+            Intent intent = new Intent(this, BackgroundLocationService.class);
+            global = intent;
+            startService(intent);
+            //
+        }
+        else
+            showGPSDisabledAlertToUser();
     }
     public void stopBLS(View v){
+        stopBackgroundLocationService();
+    }
+    public void stopBackgroundLocationService(){
         unregisterReceiver(myReceiver);
         stopService(global);
         Toast.makeText(this,"Stopped Service",Toast.LENGTH_SHORT).show();
@@ -302,12 +309,14 @@ public class MainActivity extends Activity {
             currentLocation=new LatLng(l.getLatitude(),l.getLongitude());
             Toast.makeText(ctx,
                     "Triggered by Service!\n"
-                            + "Data passed: " + currentLocation,
+                            + "Difference: " + (actual_dis-alarm_dis),
                     Toast.LENGTH_SHORT).show();
             v5.setText("Current = " + currentLocation);
             calculateDistance(currentLocation,destination);
-            if (actual_dis <= alarm_dis)
+            if (actual_dis <= alarm_dis) {
                 ring();
+                stopBackgroundLocationService();
+            }
         }
 
     }

@@ -27,6 +27,19 @@
         android:onClick="sourceCancel"
         android:paddingRight="10dp"
         />
+    <AutoCompleteTextView
+        android:id="@+id/search_map"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_gravity="top|center"
+        android:padding="5dp"
+        android:layout_marginTop="15dp"
+        android:shadowColor="@color/black"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:background="@color/white_transparent"
+        />
 
 </fragment>
 
