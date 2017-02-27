@@ -97,9 +97,7 @@ public class BackgroundLocationService extends Service {
         } catch (IllegalArgumentException ex) {
             Log.d(TAG, "gps provider does not exist " + ex.getMessage());
         }
-        //
 
-        //
         Toast.makeText(this,"Test Service",Toast.LENGTH_SHORT).show();
     }
 
@@ -136,7 +134,6 @@ public class BackgroundLocationService extends Service {
     }
     private void sendMessageToActivity(Location l, String msg) {
         Intent intent = new Intent("GPSLocationUpdates");
-        // You can also include some extra data.
         Bundle b = new Bundle();
         b.putParcelable("Location", l);
         intent.putExtra("Location", b);

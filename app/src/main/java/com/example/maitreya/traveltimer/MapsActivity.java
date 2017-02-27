@@ -103,7 +103,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         geo_autocomplete_clear.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 geo_autocomplete.setText("");
             }
         });
@@ -142,35 +141,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMyLocationEnabled(true);
 
         mGoogleApiClient.connect();
-        // Add a marker in Sydney and move the camera
-        /*
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        */
+
         mMap.setOnMarkerDragListener(this);
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-
             @Override
             public void onMapClick(LatLng latlng) {
-                /*
-                if (currLocationMarker != null) {
-                    currLocationMarker.remove();
-                }
-                markerLatLng=latlng;
-                currMarkerOptions.position(latlng);
-                currLocationMarker = mMap.addMarker(currMarkerOptions);
-                CameraPosition campos=new CameraPosition.Builder().target(markerLatLng).zoom(15).build();
-                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(campos));
-                */
-                //Created a function to handle above code. Delete this later.
                 changeMarkerPosition(latlng);
             }
         });
     }
 
     protected synchronized void buildGoogleApiClient() {
-        //Toast.makeText(this, "buildGoogleApiClient", Toast.LENGTH_SHORT).show();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -190,7 +171,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        //Toast.makeText(this, "onConnected", Toast.LENGTH_SHORT).show();
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -252,8 +232,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //
         //
 
-        //Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
-
         //zoom to current position:
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(markerLatLng).zoom(15).build();
@@ -261,21 +239,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.animateCamera(CameraUpdateFactory
                 .newCameraPosition(cameraPosition));
 
-        //If you only need one location, unregister the listener
+        //unregister the listener for 1 location (register for multiple locations)
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
 
     @Override
     public void onMarkerDragStart(Marker marker) {
-        //LatLng pos=marker.getPosition();
-        //Toast.makeText(this,"Start "+pos,Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public void onMarkerDrag(Marker marker) {
 
     }
-
     @Override
     public void onMarkerDragEnd(Marker marker) {
         markerLatLng =marker.getPosition();

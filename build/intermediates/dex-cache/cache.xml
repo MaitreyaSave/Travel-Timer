@@ -214,7 +214,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="52923977983e5c74e5f51edc2a9f99a527d4a1d2">
+        sha1="e2fa3cd7ebb4457a1e7fc16b0360823a4e2d932b">
         <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_51f4acccb62238aed5def6eb3aecdda73f9c8c9f\classes.dex" />
     </item>
     <item
@@ -484,7 +484,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="5985b230e02c03c675d5f9e1d1ee5675e0920af2">
+        sha1="1d33fcc58e6a0fc9a3d138c2a385d8467d28b304">
         <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_1108316d58fe4107c8c8f10727c4272311ee9f01\classes.dex" />
     </item>
     <item
@@ -507,21 +507,21 @@
     </item>
     <item
         is-multidex="true"
-        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.0\jars\libs\internal_impl-24.2.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.2"
-        sha1="032a4b53def5e2ceedfc2e793b126c0163cfa1dd">
-        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.0_86022cd5abfb3e654273dc572a67175beb1405ab\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\23.0.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
         sha1="d358b3dd49a7c67844622dcbc9cf4339e13952ce">
         <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-mediarouter-v7-23.0.0_31ff1acc11c72c12c5edb62d92307d1f5934eda5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="A:\Android Projects\TravelTimer\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.0\jars\libs\internal_impl-24.2.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="032a4b53def5e2ceedfc2e793b126c0163cfa1dd">
+        <dex dex="A:\Android Projects\TravelTimer\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.0_86022cd5abfb3e654273dc572a67175beb1405ab\classes.dex" />
     </item>
     <item
         is-multidex="true"

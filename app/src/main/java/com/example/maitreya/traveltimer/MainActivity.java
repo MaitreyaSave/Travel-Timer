@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
     static final int MAP_SOURCE_REQ = 0;  // The request code for source
     static final int MAP_DESTINATION_REQ = 1;  // The request code for source
     boolean destinationYN;
-    //Delete below
+    //
     TextView v1, v2, v3, v4;
     Context ctx=this;
     Intent global;
@@ -91,13 +91,6 @@ public class MainActivity extends Activity {
             requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     MY_PERMISSIONS_REQUEST_LOCATION);
         } else {
-            //Toast.makeText(this,"hasPermission",Toast.LENGTH_SHORT).show();
-            /*
-            Intent callGPSSettingIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            int x=0;
-            this.startActivityForResult(callGPSSettingIntent,x);
-            Toast.makeText(this,"value = "+x,Toast.LENGTH_SHORT).show();
-            */
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 Toast.makeText(this, "GPS is Enabled in your device", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, MapsActivity.class);
@@ -212,7 +205,7 @@ public class MainActivity extends Activity {
         v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         // Start without a delay
-        // Vibrate for 100 milliseconds
+        // Vibrate for 1000 milliseconds
         // Sleep for 1000 milliseconds
         long[] pattern = {0, 1000, 1000};
 
