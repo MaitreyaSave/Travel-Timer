@@ -4,7 +4,7 @@ android {
     buildToolsVersion "24.0.2"
 
     defaultConfig {
-        applicationId "com.example.maitreya.traveltimer"
+        applicationId "in.apps.maitreya.travelalarm"
         minSdkVersion 17
         targetSdkVersion 24
         multiDexEnabled true

@@ -8,7 +8,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:809332946745:android:5b5f040b4dcd8755",
         "android_client_info": {
-          "package_name": "com.example.maitreya.traveltimer"
+          "package_name": "in.apps.maitreya.travelalarm"
         }
       },
       "oauth_client": [
@@ -16,7 +16,7 @@
           "client_id": "809332946745-fbv7vmbgq1oapahh3u6gd9tlph2up7u6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.maitreya.traveltimer",
+            "package_name": "in.apps.maitreya.travelalarm",
             "certificate_hash": "22CDBE3A13CB2F312719FC45843A50A346B054C6"
           }
         },

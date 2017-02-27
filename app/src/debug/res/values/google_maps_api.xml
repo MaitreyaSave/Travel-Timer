@@ -7,7 +7,7 @@
     https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=22:CD:BE:3A:13:CB:2F:31:27:19:FC:45:84:3A:50:A3:46:B0:54:C6%3Bcom.example.maitreya.traveltimer
 
     You can also add your credentials to an existing key, using this line:
-    22:CD:BE:3A:13:CB:2F:31:27:19:FC:45:84:3A:50:A3:46:B0:54:C6;com.example.maitreya.traveltimer
+    22:CD:BE:3A:13:CB:2F:31:27:19:FC:45:84:3A:50:A3:46:B0:54:C6;in.apps.maitreya.travelalarmtreya.in.apps.maitreya.travelalarm
 
     Alternatively, follow the directions here:
     https://developers.google.com/maps/documentation/android/start#get-key
