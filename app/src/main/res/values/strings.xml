@@ -58,11 +58,15 @@
     <string name="cancel_button">Cancel</string>
 
     <!-- Distance Values -->
+    <string name="select_distance">Distance</string>
     <string name="meter500">500 meters</string>
     <string name="km1">1 kilometer</string>
     <string name="km2">2 kilometers</string>
     <string name="km5">5 kilometers</string>
 
+    <!-- Search Bar on Map -->
+    <string name="map_geo_search_input_hint">Enter Location</string>
+    <string name="map_geo_search_clear_input">Clear Input</string>
     <!-- To be deleted later strings -->
     <string name="calculate_distance">Calculate Distance</string>
 

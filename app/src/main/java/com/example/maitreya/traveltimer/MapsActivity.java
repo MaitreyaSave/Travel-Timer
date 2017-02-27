@@ -3,13 +3,18 @@ package com.example.maitreya.traveltimer;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -36,7 +41,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Marker currLocationMarker;
     MarkerOptions currMarkerOptions;
     Context ctx;
-
+    //
+    private Integer THRESHOLD = 2;
+    private DelayAutoCompleteTextView geo_autocomplete;
+    private ImageView geo_autocomplete_clear;
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +55,60 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         ctx=this;
+        //
+        geo_autocomplete_clear = (ImageView) findViewById(R.id.geo_autocomplete_clear);
+
+        geo_autocomplete = (DelayAutoCompleteTextView) findViewById(R.id.geo_autocomplete);
+        geo_autocomplete.setThreshold(THRESHOLD);
+        geo_autocomplete.setAdapter(new GeoAutoCompleteAdapter(this)); // 'this' is Activity instance
+
+        geo_autocomplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                GeoSearchResult result = (GeoSearchResult) adapterView.getItemAtPosition(position);
+                geo_autocomplete.setText(result.getAddressAsString());
+                //
+                Address a=result.getAddress();
+                LatLng l=new LatLng(a.getLatitude(),a.getLongitude());
+                changeMarkerPosition(l);
+                Toast.makeText(ctx,"lat = "+a.getLatitude(),Toast.LENGTH_SHORT).show();
+                //
+            }
+        });
+
+        geo_autocomplete.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length() > 0)
+                {
+                    geo_autocomplete_clear.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    geo_autocomplete_clear.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        geo_autocomplete_clear.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                geo_autocomplete.setText("");
+            }
+        });
+
+        //
     }
 
 
@@ -90,7 +153,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onMapClick(LatLng latlng) {
-
+                /*
                 if (currLocationMarker != null) {
                     currLocationMarker.remove();
                 }
@@ -99,6 +162,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 currLocationMarker = mMap.addMarker(currMarkerOptions);
                 CameraPosition campos=new CameraPosition.Builder().target(markerLatLng).zoom(15).build();
                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(campos));
+                */
+                //Created a function to handle above code. Delete this later.
+                changeMarkerPosition(latlng);
             }
         });
     }
@@ -110,6 +176,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
+    }
+    public void changeMarkerPosition(LatLng lat_lng){
+        if (currLocationMarker != null) {
+            currLocationMarker.remove();
+        }
+        markerLatLng=lat_lng;
+        currMarkerOptions.position(lat_lng);
+        currLocationMarker = mMap.addMarker(currMarkerOptions);
+        CameraPosition campos=new CameraPosition.Builder().target(markerLatLng).zoom(15).build();
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(campos));
     }
 
     @Override

@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.media.AudioManager;
@@ -28,13 +30,17 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 public class MainActivity extends Activity {
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
     static final int MAP_SOURCE_REQ = 0;  // The request code for source
     static final int MAP_DESTINATION_REQ = 1;  // The request code for source
     boolean destinationYN;
     //Delete below
-    TextView v1, v2, v3, v4, v5;
+    TextView v1, v2, v3, v4;
     Context ctx=this;
     Intent global;
     //
@@ -54,7 +60,6 @@ public class MainActivity extends Activity {
         v2 = (TextView) findViewById(R.id.textView2);
         v3 = (TextView) findViewById(R.id.textView3);
         v4 = (TextView) findViewById(R.id.textView4);
-        v5 = (TextView) findViewById(R.id.textView5);
         mMediaPlayer = new MediaPlayer();
 }
 
@@ -147,20 +152,35 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
+        Geocoder geocoder;
+        List<Address> addressList=null;
+        geocoder=new Geocoder(this, Locale.getDefault());
         if (requestCode == MAP_SOURCE_REQ) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 Bundle b = data.getExtras();
                 source = (LatLng) b.get("marker_latlng");
-                v1.setText("source " + source);
-                //Toast.makeText(this,"source "+source,Toast.LENGTH_SHORT).show();
+                //
+                try {
+                    addressList=geocoder.getFromLocation(source.latitude,source.longitude,1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                //
+                v1.setText("source: "+getAddressAsString(addressList.get(0)));
             }
         } else if (requestCode == MAP_DESTINATION_REQ) {
             if (resultCode == RESULT_OK) {
                 Bundle b = data.getExtras();
                 destination = (LatLng) b.get("marker_latlng");
-                v2.setText("destination " + destination);
-                //Toast.makeText(this,"destination "+destination,Toast.LENGTH_SHORT).show();
+                //
+                try {
+                    addressList=geocoder.getFromLocation(destination.latitude,destination.longitude,1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                //
+                v2.setText("destination: " + getAddressAsString(addressList.get(0)));
             }
         }
     }
@@ -184,10 +204,6 @@ public class MainActivity extends Activity {
             else
                 Toast.makeText(this, "Destination not selected!", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public void ringButton(View v) {
-        ring();
     }
 
     public void ring() {
@@ -246,6 +262,7 @@ public class MainActivity extends Activity {
         LayoutInflater li = getLayoutInflater();
         View v1 = li.inflate(R.layout.distance_list, null, false);
         dialog.setContentView(v1);
+        dialog.setTitle(R.string.select_distance);
         dialog.show();
         RadioGroup rg = (RadioGroup) v1.findViewById(R.id.radioGroup1);
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -253,19 +270,19 @@ public class MainActivity extends Activity {
                 switch (checkedId) {
                     case R.id.radioButton500m:
                         alarm_dis = 500;
-                        v4.setText("500 m " + (actual_dis - alarm_dis));
+                        v4.setText("500 m ");
                         break;
                     case R.id.radioButton1km:
                         alarm_dis = 1000;
-                        v4.setText("1 km " + (actual_dis - alarm_dis));
+                        v4.setText("1 km ");
                         break;
                     case R.id.radioButton2km:
                         alarm_dis = 2000;
-                        v4.setText("2 km " + (actual_dis - alarm_dis));
+                        v4.setText("2 km ");
                         break;
                     case R.id.radioButton5km:
                         alarm_dis = 5000;
-                        v4.setText("5 km " + (actual_dis - alarm_dis));
+                        v4.setText("5 km ");
                         break;
                 }
                 dialog.cancel();
@@ -282,11 +299,13 @@ public class MainActivity extends Activity {
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(BackgroundLocationService.MY_ACTION);
             registerReceiver(myReceiver, intentFilter);
-            //
             Intent intent = new Intent(this, BackgroundLocationService.class);
+            //
+            intent.putExtra("act_dist",actual_dis);
+            intent.putExtra("alarm_dist",alarm_dis);
+            //
             global = intent;
             startService(intent);
-            //
         }
         else
             showGPSDisabledAlertToUser();
@@ -311,7 +330,6 @@ public class MainActivity extends Activity {
                     "Triggered by Service!\n"
                             + "Difference: " + (actual_dis-alarm_dis),
                     Toast.LENGTH_SHORT).show();
-            v5.setText("Current = " + currentLocation);
             calculateDistance(currentLocation,destination);
             if (actual_dis <= alarm_dis) {
                 ring();
@@ -319,5 +337,19 @@ public class MainActivity extends Activity {
             }
         }
 
+    }
+    public String getAddressAsString(Address address){
+
+        String display_address = "";
+        display_address += address.getAddressLine(0) + "\n";
+
+        for(int i = 1; i < address.getMaxAddressLineIndex(); i++)
+        {
+            display_address += address.getAddressLine(i) + ", ";
+        }
+
+        display_address = display_address.substring(0, display_address.length() - 2);
+
+        return display_address;
     }
 }

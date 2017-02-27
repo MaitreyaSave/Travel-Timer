@@ -19,12 +19,9 @@ import android.widget.Toast;
 public class BackgroundLocationService extends Service {
     private static final String TAG = "TESTBLS";
     final static String MY_ACTION = "MY_ACTION";
-    //delete
-    Context ctx=this;
-    //
     private LocationManager mLocationManager = null;
-    private static final int LOCATION_INTERVAL = 1000;
-    private static final float LOCATION_DISTANCE = 10f;
+    private int LOCATION_INTERVAL = 1000;
+    private float LOCATION_DISTANCE = 10f;
 
     private class LocationListener implements android.location.LocationListener {
         Location mLastLocation;
@@ -70,6 +67,10 @@ public class BackgroundLocationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e(TAG, "onStartCommand");
+        //
+        setIntervals(intent.getFloatExtra("act_dist",-1),intent.getFloatExtra("alarm_dist",-1));
+        Toast.makeText(this,"INTERVALS = "+LOCATION_INTERVAL+" "+LOCATION_DISTANCE,Toast.LENGTH_SHORT).show();
+        //
         super.onStartCommand(intent, flags, startId);
         return START_STICKY;
     }
@@ -96,6 +97,9 @@ public class BackgroundLocationService extends Service {
         } catch (IllegalArgumentException ex) {
             Log.d(TAG, "gps provider does not exist " + ex.getMessage());
         }
+        //
+
+        //
         Toast.makeText(this,"Test Service",Toast.LENGTH_SHORT).show();
     }
 
@@ -139,6 +143,16 @@ public class BackgroundLocationService extends Service {
         intent.setAction(MY_ACTION);
         Toast.makeText(this,"Sent "+l.getLatitude(),Toast.LENGTH_SHORT).show();
         this.sendBroadcast(intent);
-        //LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
+    private void setIntervals(float actual_distance,float alarm_distance){
+        if (actual_distance<10000){
+            LOCATION_DISTANCE=100f;
+            LOCATION_INTERVAL=10*1000;
+        }
+        else {
+            int distance_factor = (int)actual_distance / 10000;
+            LOCATION_DISTANCE=1000*distance_factor;
+            LOCATION_INTERVAL=30*1000*distance_factor;
+        }
     }
 }

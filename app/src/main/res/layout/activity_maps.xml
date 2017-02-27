@@ -27,19 +27,34 @@
         android:onClick="sourceCancel"
         android:paddingRight="10dp"
         />
-    <AutoCompleteTextView
-        android:id="@+id/search_map"
+    <com.example.maitreya.traveltimer.DelayAutoCompleteTextView
+        android:id="@+id/geo_autocomplete"
         android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:imeOptions="flagNoExtractUi|actionSearch"
+        android:inputType="textCapSentences"
+        android:textColor="@color/place_autocomplete_search_hint"
+        android:background="@color/white"
+        android:hint="@string/map_geo_search_input_hint"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:padding="10dp"
+        android:dropDownWidth="fill_parent"
+    />
+    <ImageView
+        android:id="@+id/geo_autocomplete_clear"
+        android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_gravity="top|center"
-        android:padding="5dp"
+        android:src="@drawable/ic_cancel"
+        android:contentDescription="@string/map_geo_search_clear_input"
+        android:layout_gravity="center_horizontal|end"
+        android:visibility="gone"
+        android:layout_marginEnd="100dp"
+        android:layout_marginRight="100dp"
         android:layout_marginTop="15dp"
-        android:shadowColor="@color/black"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="2"
-        android:background="@color/white_transparent"
         />
-
 </fragment>
 
