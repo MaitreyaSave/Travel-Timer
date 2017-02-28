@@ -67,7 +67,8 @@
     <!-- Search Bar on Map -->
     <string name="map_geo_search_input_hint">Enter Location</string>
     <string name="map_geo_search_clear_input">Clear Input</string>
-    <!-- To be deleted later strings -->
+    <!-- Optional strings -->
     <string name="calculate_distance">Calculate Distance</string>
+    <string name="default_value">Blank</string>
 
 </resources>

@@ -22,7 +22,7 @@
         />
 
     <TextView
-        android:text="TextView"
+        android:text="@string/default_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -32,7 +32,7 @@
         android:id="@+id/textView" />
 
     <TextView
-        android:text="TextView"
+        android:text="@string/default_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/map_destination"
@@ -61,7 +61,7 @@
         android:layout_alignStart="@+id/setAlarmDis" />
 
     <TextView
-        android:text="TextView"
+        android:text="@string/default_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
@@ -81,7 +81,7 @@
         android:layout_marginTop="50dp" />
 
     <TextView
-        android:text="TextView"
+        android:text="@string/default_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView3"

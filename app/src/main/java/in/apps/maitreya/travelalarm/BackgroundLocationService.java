@@ -69,7 +69,7 @@ public class BackgroundLocationService extends Service {
         Log.e(TAG, "onStartCommand");
         //
         setIntervals(intent.getFloatExtra("act_dist",-1),intent.getFloatExtra("alarm_dist",-1));
-        Toast.makeText(this,"INTERVALS = "+LOCATION_INTERVAL+" "+LOCATION_DISTANCE,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"INTERVALS = "+LOCATION_INTERVAL+" "+LOCATION_DISTANCE,Toast.LENGTH_SHORT).show();
         //
         super.onStartCommand(intent, flags, startId);
         return START_STICKY;
@@ -98,7 +98,7 @@ public class BackgroundLocationService extends Service {
             Log.d(TAG, "gps provider does not exist " + ex.getMessage());
         }
 
-        Toast.makeText(this,"Test Service",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Service started",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -138,7 +138,7 @@ public class BackgroundLocationService extends Service {
         b.putParcelable("Location", l);
         intent.putExtra("Location", b);
         intent.setAction(MY_ACTION);
-        Toast.makeText(this,"Sent "+l.getLatitude(),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Sent "+l.getLatitude(),Toast.LENGTH_SHORT).show();
         this.sendBroadcast(intent);
     }
     private void setIntervals(float actual_distance,float alarm_distance){

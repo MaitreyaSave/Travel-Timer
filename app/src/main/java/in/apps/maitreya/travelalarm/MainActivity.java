@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
     static final int MAP_SOURCE_REQ = 0;  // The request code for source
     static final int MAP_DESTINATION_REQ = 1;  // The request code for source
-    boolean destinationYN;
+    boolean destinationYN,serviceStarted;
     //
     TextView v1, v2, v3, v4;
     Context ctx=this;
@@ -288,17 +288,30 @@ public class MainActivity extends Activity {
     public void startBLS(View v) {
         //
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            myReceiver = new MyReceiver();
-            IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(BackgroundLocationService.MY_ACTION);
-            registerReceiver(myReceiver, intentFilter);
-            Intent intent = new Intent(this, BackgroundLocationService.class);
-            //
-            intent.putExtra("act_dist",actual_dis);
-            intent.putExtra("alarm_dist",alarm_dis);
-            //
-            global = intent;
-            startService(intent);
+            if(source!=null) {
+                if(destination!=null) {
+                    if(alarm_dis>0) {
+                        myReceiver = new MyReceiver();
+                        IntentFilter intentFilter = new IntentFilter();
+                        intentFilter.addAction(BackgroundLocationService.MY_ACTION);
+                        registerReceiver(myReceiver, intentFilter);
+                        Intent intent = new Intent(this, BackgroundLocationService.class);
+                        //
+                        intent.putExtra("act_dist", actual_dis);
+                        intent.putExtra("alarm_dist", alarm_dis);
+                        //
+                        global = intent;
+                        serviceStarted = true;
+                        startService(intent);
+                    }
+                    else
+                        Toast.makeText(this,"Alarm Distance is not set",Toast.LENGTH_SHORT).show();
+                }
+                else
+                    Toast.makeText(this,"Destination is Empty",Toast.LENGTH_SHORT).show();
+            }
+            else
+                Toast.makeText(this,"Source is Empty",Toast.LENGTH_SHORT).show();
         }
         else
             showGPSDisabledAlertToUser();
@@ -307,9 +320,14 @@ public class MainActivity extends Activity {
         stopBackgroundLocationService();
     }
     public void stopBackgroundLocationService(){
-        unregisterReceiver(myReceiver);
-        stopService(global);
-        Toast.makeText(this,"Stopped Service",Toast.LENGTH_SHORT).show();
+        if(serviceStarted) {
+            unregisterReceiver(myReceiver);
+            stopService(global);
+            Toast.makeText(this, "Stopped Service", Toast.LENGTH_SHORT).show();
+            serviceStarted=false;
+        }
+        else
+            Toast.makeText(this,"Service has not started yet!",Toast.LENGTH_SHORT).show();
     }
     private class MyReceiver extends BroadcastReceiver {
 
@@ -319,10 +337,7 @@ public class MainActivity extends Activity {
             Bundle b=arg1.getBundleExtra("Location");
             Location l= b.getParcelable("Location");
             currentLocation=new LatLng(l.getLatitude(),l.getLongitude());
-            Toast.makeText(ctx,
-                    "Triggered by Service!\n"
-                            + "Difference: " + (actual_dis-alarm_dis),
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(ctx,"Difference: " + (actual_dis-alarm_dis)+" m",Toast.LENGTH_SHORT).show();
             calculateDistance(currentLocation,destination);
             if (actual_dis <= alarm_dis) {
                 ring();
