@@ -225,7 +225,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markerLatLng = new LatLng(location.getLatitude(), location.getLongitude());
         currMarkerOptions = new MarkerOptions();
         currMarkerOptions.position(markerLatLng);
-        currMarkerOptions.title("Maitreya is here!");
+        currMarkerOptions.title("You are here!");
         currMarkerOptions.draggable(true);
         currMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
         currLocationMarker = mMap.addMarker(currMarkerOptions);

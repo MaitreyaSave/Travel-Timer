@@ -20,8 +20,8 @@ public class BackgroundLocationService extends Service {
     private static final String TAG = "TESTBLS";
     final static String MY_ACTION = "MY_ACTION";
     private LocationManager mLocationManager = null;
-    private int LOCATION_INTERVAL = 1000;
-    private float LOCATION_DISTANCE = 10f;
+    private int LOCATION_INTERVAL;
+    private float LOCATION_DISTANCE;
 
     private class LocationListener implements android.location.LocationListener {
         Location mLastLocation;
@@ -69,8 +69,9 @@ public class BackgroundLocationService extends Service {
         Log.e(TAG, "onStartCommand");
         //
         setIntervals(intent.getFloatExtra("act_dist",-1),intent.getFloatExtra("alarm_dist",-1));
-        //Toast.makeText(this,"INTERVALS = "+LOCATION_INTERVAL+" "+LOCATION_DISTANCE,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"INTERVALS = "+LOCATION_INTERVAL/1000+"s "+LOCATION_DISTANCE,Toast.LENGTH_SHORT).show();
         //
+        manageLocation();
         super.onStartCommand(intent, flags, startId);
         return START_STICKY;
     }
@@ -78,6 +79,9 @@ public class BackgroundLocationService extends Service {
     @Override
     public void onCreate() {
         Log.e(TAG, "onCreate");
+        Toast.makeText(this,"Service started",Toast.LENGTH_SHORT).show();
+    }
+    public void manageLocation(){
         initializeLocationManager();
         try {
             mLocationManager.requestLocationUpdates(
@@ -97,10 +101,7 @@ public class BackgroundLocationService extends Service {
         } catch (IllegalArgumentException ex) {
             Log.d(TAG, "gps provider does not exist " + ex.getMessage());
         }
-
-        Toast.makeText(this,"Service started",Toast.LENGTH_SHORT).show();
     }
-
     @Override
     public void onDestroy() {
         Log.e(TAG, "onDestroy");
