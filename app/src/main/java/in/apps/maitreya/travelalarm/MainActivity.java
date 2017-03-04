@@ -92,7 +92,6 @@ public class MainActivity extends Activity {
                     MY_PERMISSIONS_REQUEST_LOCATION);
         } else {
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                Toast.makeText(this, "GPS is Enabled in your device", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, MapsActivity.class);
                 if (destinationYN)
                     startActivityForResult(intent, MAP_DESTINATION_REQ);
@@ -124,7 +123,6 @@ public class MainActivity extends Activity {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                        Toast.makeText(this, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(this, MapsActivity.class);
                         startActivityForResult(intent, MAP_SOURCE_REQ);
                     } else {

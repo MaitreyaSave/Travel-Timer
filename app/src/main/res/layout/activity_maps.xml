@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:imeOptions="flagNoExtractUi|actionSearch"
         android:inputType="textCapSentences"
-        android:textColor="@color/place_autocomplete_search_hint"
+        android:textColor="@color/purple"
         android:background="@color/white"
         android:hint="@string/map_geo_search_input_hint"
         android:layout_gravity="center_horizontal"

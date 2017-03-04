@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -68,10 +69,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 GeoSearchResult result = (GeoSearchResult) adapterView.getItemAtPosition(position);
                 geo_autocomplete.setText(result.getAddressAsString());
                 //
+                InputMethodManager in= (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                in.hideSoftInputFromWindow(view.getApplicationWindowToken(),0);
+                //
                 Address a=result.getAddress();
                 LatLng l=new LatLng(a.getLatitude(),a.getLongitude());
                 changeMarkerPosition(l);
-                Toast.makeText(ctx,"lat = "+a.getLatitude(),Toast.LENGTH_SHORT).show();
                 //
             }
         });
@@ -265,7 +268,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         finish();
     }
     public void sourceCancel(View v) {
-        Toast.makeText(this,"Cancel",Toast.LENGTH_SHORT).show();
         setResult(RESULT_CANCELED);
         finish();
     }
