@@ -4,6 +4,7 @@ import android.location.Address;
 
 /**
  * Created by Maitreya on 26-Feb-17.
+ *
  */
 
 public class GeoSearchResult {

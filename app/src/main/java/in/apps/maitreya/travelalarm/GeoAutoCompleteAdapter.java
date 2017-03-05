@@ -3,6 +3,7 @@ package in.apps.maitreya.travelalarm;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Maitreya on 26-Feb-17.
@@ -88,9 +90,16 @@ public class GeoAutoCompleteAdapter extends BaseAdapter implements Filterable {
 
     private List<GeoSearchResult> findLocations(Context context, String query_text) {
 
-        List<GeoSearchResult> geo_search_results = new ArrayList<GeoSearchResult>();
-
-        Geocoder geocoder = new Geocoder(context, context.getResources().getConfiguration().locale);
+        List<GeoSearchResult> geo_search_results = new ArrayList<>();
+        //
+        Locale locale;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            locale = context.getResources().getConfiguration().getLocales().get(0);
+        } else {
+            locale = context.getResources().getConfiguration().locale;
+        }
+        //
+        Geocoder geocoder = new Geocoder(context, locale);
         List<Address> addresses = null;
 
         try {

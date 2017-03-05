@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
@@ -27,6 +28,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     boolean destinationYN,serviceStarted;
     //
     TextView v1, v2, v3, v4;
-    Context ctx=this;
     Intent global;
     //
     Vibrator v;
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+                                           @NonNull  String permissions[],@NonNull int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
@@ -135,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "Sorry! Location Access Permission needed!", Toast.LENGTH_SHORT).show();
                     //nothing can be done
                 }
-                return;
             }
 
             // other 'case' lines to check for other
@@ -155,12 +155,14 @@ public class MainActivity extends AppCompatActivity {
                 Bundle b = data.getExtras();
                 source = (LatLng) b.get("marker_latlng");
                 //
+                if(source!=null)
                 try {
                     addressList=geocoder.getFromLocation(source.latitude,source.longitude,1);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 //
+                if(addressList!=null)
                 v1.setText(getAddressAsString(addressList.get(0)));
                 //
                 if(destination!=null)
@@ -171,12 +173,14 @@ public class MainActivity extends AppCompatActivity {
                 Bundle b = data.getExtras();
                 destination = (LatLng) b.get("marker_latlng");
                 //
+                if(destination!=null)
                 try {
                     addressList=geocoder.getFromLocation(destination.latitude,destination.longitude,1);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 //
+                if(addressList!=null)
                 v2.setText(getAddressAsString(addressList.get(0)));
                 //
                 if(source!=null)
@@ -236,6 +240,7 @@ public class MainActivity extends AppCompatActivity {
                 mMediaPlayer.start();
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Turn off Alarm?")
@@ -256,40 +261,46 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
     }
-
     public void setAlarmDistance(View v) {
-        final Dialog dialog = new Dialog(this);
-        LayoutInflater li = getLayoutInflater();
-        View v1 = li.inflate(R.layout.distance_list, null, false);
-        dialog.setContentView(v1);
-        dialog.setTitle(R.string.select_distance);
-        dialog.show();
-        RadioGroup rg = (RadioGroup) v1.findViewById(R.id.radioGroup1);
-        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.radioButton500m:
-                        alarm_dis = 500;
-                        v4.setText("500 m ");
-                        break;
-                    case R.id.radioButton1km:
-                        alarm_dis = 1000;
-                        v4.setText("1 km ");
-                        break;
-                    case R.id.radioButton2km:
-                        alarm_dis = 2000;
-                        v4.setText("2 km ");
-                        break;
-                    case R.id.radioButton5km:
-                        alarm_dis = 5000;
-                        v4.setText("5 km ");
-                        break;
-                }
-                dialog.cancel();
-                if (actual_dis <= alarm_dis)
-                    ring();
-            }
-        });
+        if(source!=null){
+            if(destination!=null) {
+                final Dialog dialog = new Dialog(this);
+                LayoutInflater li = getLayoutInflater();
+                View v1 = li.inflate(R.layout.distance_list, (ViewGroup) v, false);
+                dialog.setContentView(v1);
+                dialog.setTitle(R.string.select_distance);
+                dialog.show();
+                RadioGroup rg = (RadioGroup) v1.findViewById(R.id.radioGroup1);
+                rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        switch (checkedId) {
+                            case R.id.radioButton500m:
+                                alarm_dis = 500;
+                                v4.setText(R.string.meter500);
+                                break;
+                            case R.id.radioButton1km:
+                                alarm_dis = 1000;
+                                v4.setText(R.string.km1);
+                                break;
+                            case R.id.radioButton2km:
+                                alarm_dis = 2000;
+                                v4.setText(R.string.km2);
+                                break;
+                            case R.id.radioButton5km:
+                                alarm_dis = 5000;
+                                v4.setText(R.string.km5);
+                                break;
+                        }
+                        dialog.cancel();
+                        if (actual_dis <= alarm_dis)
+                            ring();
+                    }
+                });
+            }else
+                Toast.makeText(this,"Destination not selected!",Toast.LENGTH_SHORT).show();
+        }else
+            Toast.makeText(this,"Source not selected!",Toast.LENGTH_SHORT).show();
+
     }
 
     public void startBLS(View v) {
@@ -315,10 +326,10 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(this,"Alarm Distance is not set",Toast.LENGTH_SHORT).show();
                 }
                 else
-                    Toast.makeText(this,"Destination is Empty",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,"Destination not selected!",Toast.LENGTH_SHORT).show();
             }
             else
-                Toast.makeText(this,"Source is Empty",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Source not selected!",Toast.LENGTH_SHORT).show();
         }
         else
             showGPSDisabledAlertToUser();
@@ -330,7 +341,7 @@ public class MainActivity extends AppCompatActivity {
         if(serviceStarted) {
             unregisterReceiver(myReceiver);
             stopService(global);
-            Toast.makeText(this, "Stopped Service", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Service Stopped", Toast.LENGTH_SHORT).show();
             serviceStarted=false;
         }
         else
@@ -343,8 +354,9 @@ public class MainActivity extends AppCompatActivity {
 
             Bundle b=arg1.getBundleExtra("Location");
             Location l= b.getParcelable("Location");
+            if(l!=null)
             currentLocation=new LatLng(l.getLatitude(),l.getLongitude());
-            Toast.makeText(ctx,"Difference: " + (actual_dis-alarm_dis)+" m",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(ctx,"Difference: " + (actual_dis-alarm_dis)+" m",Toast.LENGTH_SHORT).show();
             calculateDistance(currentLocation,destination);
             if (actual_dis <= alarm_dis) {
                 ring();
@@ -371,7 +383,7 @@ public class MainActivity extends AppCompatActivity {
     public void sendNotification(){
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.ic_travel_alarm)
+                        .setSmallIcon(R.drawable.ic_stat_ic_travel_alarm)
                         .setContentTitle("Your are almost there")
                         .setAutoCancel(true)
                         .setContentText("Click to turn off alarm!");

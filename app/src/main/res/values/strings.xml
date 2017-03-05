@@ -54,16 +54,16 @@
     <string name="startBLS">Start</string>
     <string name="stopBLS">Stop</string>
     <!-- Ok and Cancel Button Names -->
-    <string name="ok_button">Ok</string>
+    <string name="ok_button">OK</string>
     <string name="cancel_button">Cancel</string>
 
     <!-- Distance Values -->
     <string name="select_distance">Distance</string>
     <string name="default_distance">0 km</string>
-    <string name="meter500">500 meters</string>
-    <string name="km1">1 kilometer</string>
-    <string name="km2">2 kilometers</string>
-    <string name="km5">5 kilometers</string>
+    <string name="meter500">500 m</string>
+    <string name="km1">1 km</string>
+    <string name="km2">2 km</string>
+    <string name="km5">5 km</string>
 
     <!-- Search Bar on Map -->
     <string name="map_geo_search_input_hint">Enter Location</string>

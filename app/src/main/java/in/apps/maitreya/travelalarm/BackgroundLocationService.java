@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 /**
  * Created by Maitreya on 05-Feb-17.
+ *
  */
 
 public class BackgroundLocationService extends Service {
@@ -26,7 +27,7 @@ public class BackgroundLocationService extends Service {
     private class LocationListener implements android.location.LocationListener {
         Location mLastLocation;
 
-        public LocationListener(String provider) {
+        private LocationListener(String provider) {
             Log.e(TAG, "LocationListener " + provider);
             mLastLocation = new Location(provider);
         }
@@ -34,7 +35,7 @@ public class BackgroundLocationService extends Service {
         @Override
         public void onLocationChanged(Location location) {
             Log.e(TAG, "onLocationChanged: " + location);
-            sendMessageToActivity(location,"Location changed");
+            sendMessageToActivity(location);
             mLastLocation.set(location);
         }
 
@@ -68,8 +69,8 @@ public class BackgroundLocationService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e(TAG, "onStartCommand");
         //
-        setIntervals(intent.getFloatExtra("act_dist",-1),intent.getFloatExtra("alarm_dist",-1));
-        Toast.makeText(this,"INTERVALS = "+LOCATION_INTERVAL/1000+"s "+LOCATION_DISTANCE,Toast.LENGTH_SHORT).show();
+        setIntervals(intent.getFloatExtra("act_dist",-1));
+        //Toast.makeText(this,"INTERVALS = "+LOCATION_INTERVAL/1000+"s "+LOCATION_DISTANCE,Toast.LENGTH_SHORT).show();
         //
         manageLocation();
         super.onStartCommand(intent, flags, startId);
@@ -133,7 +134,7 @@ public class BackgroundLocationService extends Service {
             mLocationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         }
     }
-    private void sendMessageToActivity(Location l, String msg) {
+    private void sendMessageToActivity(Location l) {
         Intent intent = new Intent("GPSLocationUpdates");
         Bundle b = new Bundle();
         b.putParcelable("Location", l);
@@ -142,7 +143,7 @@ public class BackgroundLocationService extends Service {
         //Toast.makeText(this,"Sent "+l.getLatitude(),Toast.LENGTH_SHORT).show();
         this.sendBroadcast(intent);
     }
-    private void setIntervals(float actual_distance,float alarm_distance){
+    private void setIntervals(float actual_distance){
         if (actual_distance<10000){
             LOCATION_DISTANCE=100f;
             LOCATION_INTERVAL=10*1000;
