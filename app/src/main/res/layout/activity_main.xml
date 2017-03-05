@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/map_source"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 />
             <TextView
                 android:text="@string/default_value"
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/map_destination"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 />
             <TextView
                 android:text="@string/default_value"
@@ -96,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/alarm_big"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:text="@string/map_alarm"
                 />
             <TextView
@@ -125,7 +125,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:id="@+id/dis_big"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:text="@string/calculate_distance"
                 android:layout_height="wrap_content" />
             <TextView
@@ -159,7 +159,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="30sp"
+                    android:textSize="25sp"
                     android:layout_gravity="center"
                     android:textColor="@color/white"
                     android:text="@string/startBLS"
@@ -182,7 +182,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="30sp"
+                    android:textSize="25sp"
                     android:layout_gravity="center"
                     android:textColor="@color/white"
                     android:text="@string/stopBLS"

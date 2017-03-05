@@ -199,7 +199,8 @@ public class MainActivity extends AppCompatActivity {
             d1.setLatitude(d.latitude);
             float disf = actual_dis = s1.distanceTo(d1);
             int dis = (int) disf;
-            v3.setText("Distance = " + dis / 1000.0 + " kms");
+            String distance_string=dis/1000.0+" km";
+            v3.setText(distance_string);
         } else {
             if (source == null)
                 Toast.makeText(this, "Source not selected!", Toast.LENGTH_SHORT).show();
