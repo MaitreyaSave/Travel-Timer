@@ -1,6 +1,8 @@
 package in.apps.maitreya.travelalarm;
 
 import android.app.Dialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,6 +22,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -204,6 +207,8 @@ public class MainActivity extends AppCompatActivity {
     public void ring() {
         //
         // Get instance of Vibrator from current Context
+        sendNotification();
+        //
         v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         // Start without a delay
@@ -361,5 +366,23 @@ public class MainActivity extends AppCompatActivity {
         display_address = display_address.substring(0, display_address.length() - 2);
 
         return display_address;
+    }
+    //notification function
+    public void sendNotification(){
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.mipmap.ic_travel_alarm)
+                        .setContentTitle("Your are almost there")
+                        .setAutoCancel(true)
+                        .setContentText("Click to turn off alarm!");
+
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
     }
 }
