@@ -45,9 +45,9 @@
     <string name="title_activity_maps">Map</string>
 
     <!-- Button Names on Main -->
-    <string name="map_source">Source</string>
-    <string name="map_destination">Destination</string>
-    <string name="map_alarm">Set Alarm</string>
+    <string name="map_source">From:</string>
+    <string name="map_destination">To:</string>
+    <string name="map_alarm">Alarm Distance</string>
 
     <!-- Button Names on Main -->
     <string name="set_marker">Set Marker</string>
@@ -59,6 +59,7 @@
 
     <!-- Distance Values -->
     <string name="select_distance">Distance</string>
+    <string name="default_distance">0 km</string>
     <string name="meter500">500 meters</string>
     <string name="km1">1 kilometer</string>
     <string name="km2">2 kilometers</string>
@@ -68,7 +69,7 @@
     <string name="map_geo_search_input_hint">Enter Location</string>
     <string name="map_geo_search_clear_input">Clear Input</string>
     <!-- Optional strings -->
-    <string name="calculate_distance">Calculate Distance</string>
-    <string name="default_value">Blank</string>
+    <string name="calculate_distance">Actual Distance</string>
+    <string name="default_value">Click me!</string>
 
 </resources>

@@ -1,6 +1,5 @@
 package in.apps.maitreya.travelalarm;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -22,6 +21,7 @@ import android.os.Vibrator;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioGroup;
@@ -34,7 +34,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
     static final int MAP_SOURCE_REQ = 0;  // The request code for source
     static final int MAP_DESTINATION_REQ = 1;  // The request code for source
@@ -56,10 +56,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        v1 = (TextView) findViewById(R.id.textView);
-        v2 = (TextView) findViewById(R.id.textView2);
-        v3 = (TextView) findViewById(R.id.textView3);
-        v4 = (TextView) findViewById(R.id.textView4);
+        v1 = (TextView) findViewById(R.id.source_tv);
+        v2 = (TextView) findViewById(R.id.destination_tv);
+        v3 = (TextView) findViewById(R.id.calDis_tv);
+        v4 = (TextView) findViewById(R.id.AlarmDis_tv);
         mMediaPlayer = new MediaPlayer();
 }
 
@@ -158,7 +158,10 @@ public class MainActivity extends Activity {
                     e.printStackTrace();
                 }
                 //
-                v1.setText("source: "+getAddressAsString(addressList.get(0)));
+                v1.setText(getAddressAsString(addressList.get(0)));
+                //
+                if(destination!=null)
+                    calculateDistance(source,destination);
             }
         } else if (requestCode == MAP_DESTINATION_REQ) {
             if (resultCode == RESULT_OK) {
@@ -171,13 +174,14 @@ public class MainActivity extends Activity {
                     e.printStackTrace();
                 }
                 //
-                v2.setText("destination: " + getAddressAsString(addressList.get(0)));
+                v2.setText(getAddressAsString(addressList.get(0)));
+                //
+                if(source!=null)
+                    calculateDistance(source,destination);
             }
         }
     }
-    public void calDis(View v){
-        calculateDistance(source,destination);
-    }
+
     public void calculateDistance(LatLng s,LatLng d) {
         if (source != null && destination != null) {
             Location s1 = new Location("S");
