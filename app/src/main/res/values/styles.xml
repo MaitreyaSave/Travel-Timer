@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/purple</item>
         <item name="colorPrimaryDark">@color/dark_purple</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/light_purple</item>
     </style>
 
     <!-- Activity with no Title -->

@@ -27,9 +27,13 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,17 +43,21 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
     static final int MAP_SOURCE_REQ = 0;  // The request code for source
     static final int MAP_DESTINATION_REQ = 1;  // The request code for source
+    static final int SETTINGS = 2; // The request code for settings
     boolean destinationYN,serviceStarted;
     //
     TextView v1, v2, v3, v4;
+    SeekBar seekBarAlarmDistance;
     Intent global;
+    Context ctx=this;
     //
     Vibrator v;
     float alarm_dis, actual_dis;
+    int minAlarmDistance,maxAlarmDistance;
     static MediaPlayer mMediaPlayer;
     LatLng source, destination, currentLocation;
     LocationManager locationManager;
@@ -64,7 +72,12 @@ public class MainActivity extends AppCompatActivity {
         v2 = (TextView) findViewById(R.id.destination_tv);
         v3 = (TextView) findViewById(R.id.calDis_tv);
         v4 = (TextView) findViewById(R.id.AlarmDis_tv);
+        seekBarAlarmDistance= (SeekBar) findViewById(R.id.alarm_seek_bar);
+        seekBarAlarmDistance.setOnSeekBarChangeListener(this);
         mMediaPlayer = new MediaPlayer();
+        minAlarmDistance=1;
+        maxAlarmDistance=100;
+        seekBarAlarmDistance.setMax(99);
 }
 
     private void showGPSDisabledAlertToUser() {
@@ -146,45 +159,55 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
-        Geocoder geocoder;
-        List<Address> addressList=null;
-        geocoder=new Geocoder(this, Locale.getDefault());
-        if (requestCode == MAP_SOURCE_REQ) {
-            // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
-                Bundle b = data.getExtras();
-                source = (LatLng) b.get("marker_latlng");
-                //
-                if(source!=null)
-                try {
-                    addressList=geocoder.getFromLocation(source.latitude,source.longitude,1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                //
-                if(addressList!=null)
-                v1.setText(getAddressAsString(addressList.get(0)));
-                //
-                if(destination!=null)
-                    calculateDistance(source,destination);
+        if (requestCode == SETTINGS){
+            if ((resultCode == RESULT_OK)){
+                Bundle b=data.getExtras();
+                minAlarmDistance=b.getInt("min_alarm");
+                maxAlarmDistance=b.getInt("max_alarm");
+                seekBarAlarmDistance.setMax(maxAlarmDistance-minAlarmDistance);
             }
-        } else if (requestCode == MAP_DESTINATION_REQ) {
-            if (resultCode == RESULT_OK) {
-                Bundle b = data.getExtras();
-                destination = (LatLng) b.get("marker_latlng");
-                //
-                if(destination!=null)
-                try {
-                    addressList=geocoder.getFromLocation(destination.latitude,destination.longitude,1);
-                } catch (IOException e) {
-                    e.printStackTrace();
+        }
+        else {
+            Geocoder geocoder;
+            List<Address> addressList = null;
+            geocoder = new Geocoder(this, Locale.getDefault());
+            if (requestCode == MAP_SOURCE_REQ) {
+                // Make sure the request was successful
+                if (resultCode == RESULT_OK) {
+                    Bundle b = data.getExtras();
+                    source = (LatLng) b.get("marker_latlng");
+                    //
+                    if (source != null)
+                        try {
+                            addressList = geocoder.getFromLocation(source.latitude, source.longitude, 1);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    //
+                    if (addressList != null)
+                        v1.setText(getAddressAsString(addressList.get(0)));
+                    //
+                    if (destination != null)
+                        calculateDistance(source, destination);
                 }
-                //
-                if(addressList!=null)
-                v2.setText(getAddressAsString(addressList.get(0)));
-                //
-                if(source!=null)
-                    calculateDistance(source,destination);
+            } else if (requestCode == MAP_DESTINATION_REQ) {
+                if (resultCode == RESULT_OK) {
+                    Bundle b = data.getExtras();
+                    destination = (LatLng) b.get("marker_latlng");
+                    //
+                    if (destination != null)
+                        try {
+                            addressList = geocoder.getFromLocation(destination.latitude, destination.longitude, 1);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    //
+                    if (addressList != null)
+                        v2.setText(getAddressAsString(addressList.get(0)));
+                    //
+                    if (source != null)
+                        calculateDistance(source, destination);
+                }
             }
         }
     }
@@ -197,8 +220,9 @@ public class MainActivity extends AppCompatActivity {
             s1.setLongitude(s.longitude);
             d1.setLongitude(d.longitude);
             d1.setLatitude(d.latitude);
-            float disf = actual_dis = s1.distanceTo(d1);
-            int dis = (int) disf;
+            actual_dis = s1.distanceTo(d1);
+            int dis = (int) actual_dis;
+            actual_dis/=1000;
             String distance_string=dis/1000.0+" km";
             v3.setText(distance_string);
         } else {
@@ -262,50 +286,12 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
     }
-    public void setAlarmDistance(View v) {
-        if(source!=null){
-            if(destination!=null) {
-                final Dialog dialog = new Dialog(this);
-                LayoutInflater li = getLayoutInflater();
-                View v1 = li.inflate(R.layout.distance_list, (ViewGroup) v, false);
-                dialog.setContentView(v1);
-                dialog.setTitle(R.string.select_distance);
-                dialog.show();
-                RadioGroup rg = (RadioGroup) v1.findViewById(R.id.radioGroup1);
-                rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        switch (checkedId) {
-                            case R.id.radioButton500m:
-                                alarm_dis = 500;
-                                v4.setText(R.string.meter500);
-                                break;
-                            case R.id.radioButton1km:
-                                alarm_dis = 1000;
-                                v4.setText(R.string.km1);
-                                break;
-                            case R.id.radioButton2km:
-                                alarm_dis = 2000;
-                                v4.setText(R.string.km2);
-                                break;
-                            case R.id.radioButton5km:
-                                alarm_dis = 5000;
-                                v4.setText(R.string.km5);
-                                break;
-                        }
-                        dialog.cancel();
-                        if (actual_dis <= alarm_dis)
-                            ring();
-                    }
-                });
-            }else
-                Toast.makeText(this,"Destination not selected!",Toast.LENGTH_SHORT).show();
-        }else
-            Toast.makeText(this,"Source not selected!",Toast.LENGTH_SHORT).show();
-
-    }
-
     public void startBLS(View v) {
         //
+        if(alarm_dis>=actual_dis){
+            Toast.makeText(this,"Alarm Distance cannot be larger than actual distance!",Toast.LENGTH_SHORT).show();
+        }
+        else
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             if(source!=null) {
                 if(destination!=null) {
@@ -352,7 +338,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context arg0, Intent arg1) {
-
             Bundle b=arg1.getBundleExtra("Location");
             Location l= b.getParcelable("Location");
             if(l!=null)
@@ -397,5 +382,41 @@ public class MainActivity extends AppCompatActivity {
         // Add as notification
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(0, builder.build());
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // action with ID action_settings was selected
+            case R.id.action_settings:
+                Intent i=new Intent(this,SettingsActivity.class);
+                i.putExtra("current_min_alarm",minAlarmDistance);
+                i.putExtra("current_max_alarm",maxAlarmDistance);
+                startActivityForResult(i,SETTINGS);
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        alarm_dis=progress+minAlarmDistance;;
+        v4.setText(""+alarm_dis+" km");
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
     }
 }

@@ -72,4 +72,12 @@
     <string name="calculate_distance">Actual Distance</string>
     <string name="default_value">Click me!</string>
 
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_sound">Allow sound in Silent/Vibrate Mode</string>
+    <string name="settings_notification">Show pending-distance notification</string>
+    <string name="settings_back">Back</string>
+    <string name="settings_min_alarm">Minimum Alarm Distance</string>
+    <string name="settings_max_alarm">Maximum Alarm Distance</string>
+    <string name="kilometer">km</string>
 </resources>
