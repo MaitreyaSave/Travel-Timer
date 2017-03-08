@@ -3,6 +3,7 @@ package in.apps.maitreya.travelalarm;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -11,6 +12,8 @@ import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.Toast;
+
+import static in.apps.maitreya.travelalarm.MainActivity.MY_PREFS_NAME;
 
 /**
  * Created by Maitreya on 05-Feb-17.
@@ -69,7 +72,9 @@ public class BackgroundLocationService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e(TAG, "onStartCommand");
         //
-        setIntervals(intent.getFloatExtra("act_dist",-1));
+        SharedPreferences prefs=getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        boolean notification_flag=prefs.getBoolean("notif",false);
+        setIntervals(intent.getFloatExtra("act_dist",-1),notification_flag);
         //Toast.makeText(this,"INTERVALS = "+LOCATION_INTERVAL/1000+"s "+LOCATION_DISTANCE,Toast.LENGTH_SHORT).show();
         //
         manageLocation();
@@ -143,15 +148,20 @@ public class BackgroundLocationService extends Service {
         //Toast.makeText(this,"Sent "+l.getLatitude(),Toast.LENGTH_SHORT).show();
         this.sendBroadcast(intent);
     }
-    private void setIntervals(float actual_distance){
-        if (actual_distance<10000){
-            LOCATION_DISTANCE=100f;
-            LOCATION_INTERVAL=10*1000;
+    private void setIntervals(float actual_distance,boolean notification_flag){
+        if(notification_flag){
+            LOCATION_DISTANCE = 100f;
+            LOCATION_INTERVAL = 1000;
         }
         else {
-            int distance_factor = (int)actual_distance / 10000;
-            LOCATION_DISTANCE=1000*distance_factor;
-            LOCATION_INTERVAL=30*1000*distance_factor;
+            if (actual_distance < 10000) {
+                LOCATION_DISTANCE = 100f;
+                LOCATION_INTERVAL = 10 * 1000;
+            } else {
+                int distance_factor = (int) actual_distance / 10000;
+                LOCATION_DISTANCE = 1000 * distance_factor;
+                LOCATION_INTERVAL = 30 * 1000 * distance_factor;
+            }
         }
     }
 }

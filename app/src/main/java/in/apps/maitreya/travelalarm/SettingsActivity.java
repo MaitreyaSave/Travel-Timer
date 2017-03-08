@@ -1,29 +1,40 @@
 package in.apps.maitreya.travelalarm;
 
-import android.content.Intent;
+import android.app.ActionBar;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
+
+import static in.apps.maitreya.travelalarm.MainActivity.MY_PREFS_NAME;
 
 public class SettingsActivity extends AppCompatActivity {
     private int minAlarmDistance,maxAlarmDistance;
     EditText et1,et2;
+    Switch aSwitch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         et1= (EditText) findViewById(R.id.min_alarm_et);
         et2= (EditText) findViewById(R.id.max_alarm_et);
-        Bundle b=getIntent().getExtras();
-        minAlarmDistance=b.getInt("current_min_alarm");
-        maxAlarmDistance=b.getInt("current_max_alarm");
-        et1.setText(""+minAlarmDistance+"");
-        et2.setText(""+maxAlarmDistance+"");
+        aSwitch= (Switch) findViewById(R.id.settings_notification_switch);
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        aSwitch.setChecked(prefs.getBoolean("notif",false));
+        et1.setText(""+prefs.getInt("minAlarm",-1)+"");
+        et2.setText(""+prefs.getInt("maxAlarm",-1)+"");
+        //
+        /*android.support.v7.app.ActionBar a=getSupportActionBar();
+        if(a!=null) {
+            a.setDisplayHomeAsUpEnabled(true);
+            a.setHomeButtonEnabled(true);
+        }*/
+        //
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -61,10 +72,12 @@ public class SettingsActivity extends AppCompatActivity {
             Toast.makeText(this,"Minimum value cannot be greater than maximum value!",Toast.LENGTH_SHORT).show();
         }
         else {
-            Intent intent = new Intent();
-            intent.putExtra("min_alarm", minAlarmDistance);
-            intent.putExtra("max_alarm", maxAlarmDistance);
-            setResult(RESULT_OK, intent);
+            SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+            editor.putBoolean("notif",aSwitch.isChecked());
+            editor.putInt("minAlarm",minAlarmDistance);
+            editor.putInt("maxAlarm",maxAlarmDistance);
+            editor.apply();
+            setResult(RESULT_OK);
             finish();
         }
     }

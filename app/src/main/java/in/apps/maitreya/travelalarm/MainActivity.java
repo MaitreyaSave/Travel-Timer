@@ -1,6 +1,5 @@
 package in.apps.maitreya.travelalarm;
 
-import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -8,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -26,19 +26,17 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -53,11 +51,12 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     TextView v1, v2, v3, v4;
     SeekBar seekBarAlarmDistance;
     Intent global;
-    Context ctx=this;
+    public static final String MY_PREFS_NAME = "MySharedPrefsFile";
     //
     Vibrator v;
     float alarm_dis, actual_dis;
     int minAlarmDistance,maxAlarmDistance;
+    boolean notification_flag;
     static MediaPlayer mMediaPlayer;
     LatLng source, destination, currentLocation;
     LocationManager locationManager;
@@ -75,9 +74,24 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         seekBarAlarmDistance= (SeekBar) findViewById(R.id.alarm_seek_bar);
         seekBarAlarmDistance.setOnSeekBarChangeListener(this);
         mMediaPlayer = new MediaPlayer();
-        minAlarmDistance=1;
-        maxAlarmDistance=100;
-        seekBarAlarmDistance.setMax(99);
+        if(!preferenceFileExist(MY_PREFS_NAME)) {
+            //default values
+            minAlarmDistance = 1;
+            maxAlarmDistance = 20;
+            notification_flag=false;
+            //
+            SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+            editor.putBoolean("notif", notification_flag);
+            editor.putInt("minAlarm", minAlarmDistance);
+            editor.putInt("maxAlarm", maxAlarmDistance);
+            editor.apply();
+        }
+        SharedPreferences sp=getSharedPreferences(MY_PREFS_NAME,MODE_PRIVATE);
+        maxAlarmDistance=sp.getInt("maxAlarm",-1);
+        minAlarmDistance=sp.getInt("minAlarm",-1);
+        notification_flag=sp.getBoolean("notif",false);
+        seekBarAlarmDistance.setMax(maxAlarmDistance - minAlarmDistance);
+        //
 }
 
     private void showGPSDisabledAlertToUser() {
@@ -159,11 +173,13 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
+
         if (requestCode == SETTINGS){
             if ((resultCode == RESULT_OK)){
-                Bundle b=data.getExtras();
-                minAlarmDistance=b.getInt("min_alarm");
-                maxAlarmDistance=b.getInt("max_alarm");
+                SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+                minAlarmDistance=prefs.getInt("minAlarm",-1);
+                maxAlarmDistance=prefs.getInt("maxAlarm",-1);
+                notification_flag=prefs.getBoolean("notif",false);
                 seekBarAlarmDistance.setMax(maxAlarmDistance-minAlarmDistance);
             }
         }
@@ -236,7 +252,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     public void ring() {
         //
         // Get instance of Vibrator from current Context
-        sendNotification();
+        sendNotification("Your are almost there","Click to turn off alarm!",true,true);
         //
         v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -258,8 +274,8 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             }
             mMediaPlayer.setDataSource(this, alert);
             final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-            if (audioManager.getStreamVolume(AudioManager.STREAM_RING) != 0) {
-                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+            if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
+                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
                 mMediaPlayer.setLooping(true);
                 mMediaPlayer.prepare();
                 mMediaPlayer.start();
@@ -296,6 +312,12 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             if(source!=null) {
                 if(destination!=null) {
                     if(alarm_dis>0) {
+                        //Pending distance notification
+                        if(notification_flag) {
+                            int dis= (int) (actual_dis*1000);
+                            sendNotification("Pending distance", dis/1000.0 + " km", true, true);
+                        }
+                        //
                         myReceiver = new MyReceiver();
                         IntentFilter intentFilter = new IntentFilter();
                         intentFilter.addAction(BackgroundLocationService.MY_ACTION);
@@ -366,13 +388,14 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         return display_address;
     }
     //notification function
-    public void sendNotification(){
+    public void sendNotification(String title,String content, boolean autocancel,boolean ongoing){
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.ic_stat_ic_travel_alarm)
-                        .setContentTitle("Your are almost there")
-                        .setAutoCancel(true)
-                        .setContentText("Click to turn off alarm!");
+                        .setContentTitle(title)
+                        .setAutoCancel(autocancel)
+                        .setOngoing(ongoing)
+                        .setContentText(content);
 
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
@@ -395,8 +418,6 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             // action with ID action_settings was selected
             case R.id.action_settings:
                 Intent i=new Intent(this,SettingsActivity.class);
-                i.putExtra("current_min_alarm",minAlarmDistance);
-                i.putExtra("current_max_alarm",maxAlarmDistance);
                 startActivityForResult(i,SETTINGS);
                 break;
             default:
@@ -406,7 +427,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     }
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        alarm_dis=progress+minAlarmDistance;;
+        alarm_dis=progress+minAlarmDistance;
         v4.setText(""+alarm_dis+" km");
     }
 
@@ -418,5 +439,10 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
+    }
+    public boolean preferenceFileExist(String fileName) {
+        File f = new File(getApplicationContext().getApplicationInfo().dataDir + "/shared_prefs/"
+                + fileName + ".xml");
+        return f.exists();
     }
 }
