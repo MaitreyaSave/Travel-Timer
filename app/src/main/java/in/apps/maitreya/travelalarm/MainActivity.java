@@ -16,10 +16,13 @@ import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
@@ -115,6 +118,26 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
     }
+    private void showNetworkDisabledAlertToUser(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Internet Connection is disabled in your device. Would you like to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Open Network Settings",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent intent=new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
+                                startActivity(intent);
+                            }
+                        });
+        alertDialogBuilder.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void mapSD(View v) {
@@ -122,14 +145,19 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     MY_PERMISSIONS_REQUEST_LOCATION);
         } else {
-            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                Intent intent = new Intent(this, MapsActivity.class);
-                if (destinationYN)
-                    startActivityForResult(intent, MAP_DESTINATION_REQ);
-                else
-                    startActivityForResult(intent, MAP_SOURCE_REQ);
-            } else {
-                showGPSDisabledAlertToUser();
+            if(isNetworkAvailable()){
+                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    Intent intent = new Intent(this, MapsActivity.class);
+                    if (destinationYN)
+                        startActivityForResult(intent, MAP_DESTINATION_REQ);
+                    else
+                        startActivityForResult(intent, MAP_SOURCE_REQ);
+                } else {
+                    showGPSDisabledAlertToUser();
+                }
+            }
+            else {
+                    showNetworkDisabledAlertToUser();
             }
         }
     }
@@ -444,5 +472,11 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         File f = new File(getApplicationContext().getApplicationInfo().dataDir + "/shared_prefs/"
                 + fileName + ".xml");
         return f.exists();
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

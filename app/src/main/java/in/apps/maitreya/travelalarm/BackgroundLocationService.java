@@ -85,7 +85,7 @@ public class BackgroundLocationService extends Service {
     @Override
     public void onCreate() {
         Log.e(TAG, "onCreate");
-        Toast.makeText(this,"Service started",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Service started!\nYou can now turn off your Internet Connection!",Toast.LENGTH_SHORT).show();
     }
     public void manageLocation(){
         initializeLocationManager();
