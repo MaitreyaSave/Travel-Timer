@@ -1,12 +1,13 @@
 package in.apps.maitreya.travelalarm;
 
-import android.app.ActionBar;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -29,30 +30,18 @@ public class SettingsActivity extends AppCompatActivity {
         et1.setText(""+prefs.getInt("minAlarm",-1)+"");
         et2.setText(""+prefs.getInt("maxAlarm",-1)+"");
         //
-        /*android.support.v7.app.ActionBar a=getSupportActionBar();
-        if(a!=null) {
-            a.setDisplayHomeAsUpEnabled(true);
-            a.setHomeButtonEnabled(true);
-        }*/
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_settings);
+        toolbar.setNavigationIcon(R.drawable.ic_action_arrow_back);
+        setSupportActionBar(toolbar);
         //
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.settings_menu, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // action with ID action_settings was selected
-            case R.id.action_back:
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 exitSettings();
-                break;
-            default:
-                break;
-        }
-        return true;
+            }
+        });
+        //
+        //
     }
     @Override
     public void onBackPressed(){

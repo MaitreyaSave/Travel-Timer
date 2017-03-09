@@ -80,4 +80,9 @@
     <string name="settings_min_alarm">Minimum Alarm Distance</string>
     <string name="settings_max_alarm">Maximum Alarm Distance</string>
     <string name="kilometer">km</string>
+
+    <!-- Favorites -->
+    <string name="favorites_title">Favorites</string>
+    <string name="favorites_add">Add</string>
+    <string name="favorites_delete">Delete</string>
 </resources>

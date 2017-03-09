@@ -2,10 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_favorites"
+        android:title="@string/favorites_title"
+        android:icon="@drawable/ic_action_star"
+        app:showAsAction="ifRoom"
+        >
+    </item>
+    <item
         android:id="@+id/action_settings"
         android:title="@string/settings_title"
         android:icon="@drawable/ic_action_settings"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         >
     </item>
 </menu>

@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     static final int MAP_SOURCE_REQ = 0;  // The request code for source
     static final int MAP_DESTINATION_REQ = 1;  // The request code for source
     static final int SETTINGS = 2; // The request code for settings
+    static final int FAVORITES = 3; // The request code for FAVORITES
     boolean destinationYN,serviceStarted;
     //
     TextView v1, v2, v3, v4;
@@ -394,6 +395,12 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             currentLocation=new LatLng(l.getLatitude(),l.getLongitude());
             //Toast.makeText(ctx,"Difference: " + (actual_dis-alarm_dis)+" m",Toast.LENGTH_SHORT).show();
             calculateDistance(currentLocation,destination);
+            //Pending distance notification
+            if(notification_flag) {
+                int dis= (int) (actual_dis*1000);
+                sendNotification("Pending distance", dis/1000.0 + " km", true, true);
+            }
+            //
             if (actual_dis <= alarm_dis) {
                 ring();
                 stopBackgroundLocationService();
@@ -447,6 +454,10 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             case R.id.action_settings:
                 Intent i=new Intent(this,SettingsActivity.class);
                 startActivityForResult(i,SETTINGS);
+                break;
+            case R.id.action_favorites:
+                Intent i1=new Intent(this,FavoritesActivity.class);
+                startActivityForResult(i1,FAVORITES);
                 break;
             default:
                 break;
