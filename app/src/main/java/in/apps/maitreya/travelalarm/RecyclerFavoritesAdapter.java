@@ -1,12 +1,21 @@
 package in.apps.maitreya.travelalarm;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Maitreya on 11-Mar-17.
@@ -14,16 +23,23 @@ import java.util.List;
 
 public class RecyclerFavoritesAdapter extends RecyclerView.Adapter<RecyclerFavoritesAdapter.ViewHolder> {
     private List<Route> routeList;
-
+    private boolean showCheck;
+    private Context ctx;
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView mTextView;
+        public TextView routeTitle,routeSource,routeDestination;
+        public CheckBox checkDelete;
+        public CardView cardView;
         public ViewHolder(View v) {
             super(v);
-            mTextView = (TextView) v.findViewById(R.id.route_title);
+            routeTitle = (TextView) v.findViewById(R.id.route_title);
+            routeSource = (TextView) v.findViewById(R.id.route_map_source);
+            routeDestination = (TextView) v.findViewById(R.id.route_map_destination);
+            checkDelete = (CheckBox) v.findViewById(R.id.check_delete);
+            cardView = (CardView) v.findViewById(R.id.favorites_recycler_card);
         }
     }
 
@@ -39,6 +55,7 @@ public class RecyclerFavoritesAdapter extends RecyclerView.Adapter<RecyclerFavor
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.route_list, parent, false);
+
         // set the view's size, margins, paddings and layout parameters
 
         ViewHolder vh = new ViewHolder(v);
@@ -48,11 +65,50 @@ public class RecyclerFavoritesAdapter extends RecyclerView.Adapter<RecyclerFavor
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         Route route=routeList.get(position);
-        holder.mTextView.setText(route.getTitle());
+        holder.routeTitle.setText(route.getTitle());
+
+        holder.routeSource.setText(route.getSourceString());
+        holder.routeDestination.setText(route.getDestinationString());
+        //
+        if (showCheck) {
+            holder.checkDelete.setVisibility(View.VISIBLE);
+            //
+            holder.checkDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(holder.checkDelete.isChecked())
+                        routeList.get(position).setDeleteYN(true);
+                    else
+                        routeList.get(position).setDeleteYN(false);
+                }
+            });
+
+
+            //
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(holder.checkDelete.isChecked()) {
+                        holder.checkDelete.setChecked(false);
+                        routeList.get(position).setDeleteYN(false);
+                    }
+                    else {
+                        holder.checkDelete.setChecked(true);
+                        routeList.get(position).setDeleteYN(true);
+                    }
+                }
+            });
+        }
+        else {
+            holder.checkDelete.setVisibility(View.GONE);
+            holder.checkDelete.setChecked(false);
+        }
+
+
 
     }
 
@@ -60,5 +116,26 @@ public class RecyclerFavoritesAdapter extends RecyclerView.Adapter<RecyclerFavor
     @Override
     public int getItemCount() {
         return routeList.size();
+    }
+    public void notify(List<Route> list) {
+        if (routeList != null) {
+            routeList.clear();
+            routeList.addAll(list);
+
+        } else {
+            routeList = list;
+        }
+        notifyDataSetChanged();
+    }
+    public void showCheckboxes(boolean showCheck){
+        this.showCheck=showCheck;
+    }
+
+    public Context getCtx() {
+        return ctx;
+    }
+
+    public void setCtx(Context ctx) {
+        this.ctx = ctx;
     }
 }

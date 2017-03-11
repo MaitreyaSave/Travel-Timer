@@ -10,6 +10,9 @@ public class Route {
     private String title;
     private LatLng source;
     private LatLng destination;
+    private String sourceString;
+    private String destinationString;
+    private boolean deleteYN;
     public Route(){
 
     }
@@ -38,5 +41,29 @@ public class Route {
 
     public void setSource(LatLng source) {
         this.source = source;
+    }
+
+    public String getSourceString() {
+        return sourceString;
+    }
+
+    public void setSourceString(String sourceString) {
+        this.sourceString = sourceString;
+    }
+
+    public String getDestinationString() {
+        return destinationString;
+    }
+
+    public void setDestinationString(String destinationString) {
+        this.destinationString = destinationString;
+    }
+
+    public boolean isDeleteYN() {
+        return deleteYN;
+    }
+
+    public void setDeleteYN(boolean deleteYN) {
+        this.deleteYN = deleteYN;
     }
 }

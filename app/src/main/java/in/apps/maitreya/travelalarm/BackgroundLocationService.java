@@ -72,9 +72,7 @@ public class BackgroundLocationService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e(TAG, "onStartCommand");
         //
-        SharedPreferences prefs=getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        boolean notification_flag=prefs.getBoolean("notif",false);
-        setIntervals(intent.getFloatExtra("act_dist",-1),notification_flag);
+        setIntervals(intent.getFloatExtra("act_dist",-1),intent.getBooleanExtra("notif",false));
         //Toast.makeText(this,"INTERVALS = "+LOCATION_INTERVAL/1000+"s "+LOCATION_DISTANCE,Toast.LENGTH_SHORT).show();
         //
         manageLocation();
@@ -150,15 +148,15 @@ public class BackgroundLocationService extends Service {
     }
     private void setIntervals(float actual_distance,boolean notification_flag){
         if(notification_flag){
-            LOCATION_DISTANCE = 100f;
+            LOCATION_DISTANCE = 10f;
             LOCATION_INTERVAL = 1000;
         }
         else {
-            if (actual_distance < 10000) {
+            if (actual_distance < 10) {
                 LOCATION_DISTANCE = 100f;
                 LOCATION_INTERVAL = 10 * 1000;
             } else {
-                int distance_factor = (int) actual_distance / 10000;
+                int distance_factor = (int) actual_distance / 10;
                 LOCATION_DISTANCE = 1000 * distance_factor;
                 LOCATION_INTERVAL = 30 * 1000 * distance_factor;
             }

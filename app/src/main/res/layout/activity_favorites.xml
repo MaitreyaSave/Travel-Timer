@@ -41,4 +41,14 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:scrollbars="vertical" />
 
+    <TextView
+        android:id="@+id/no_list_tv"
+        android:text="@string/favorites_no_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:textSize="30sp"
+        android:layout_gravity="center"
+        />
+
 </android.support.design.widget.CoordinatorLayout>

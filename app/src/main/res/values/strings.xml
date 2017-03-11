@@ -85,7 +85,10 @@
     <string name="favorites_title">Favorite Routes</string>
     <string name="favorites_add">Add</string>
     <string name="favorites_delete">Delete</string>
+    <string name="favorites_no_list">No Routes to display!</string>
 
     <!-- Add Route -->
     <string name="add_route_title">Add Route</string>
+    <string name="name_route">Name: </string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>

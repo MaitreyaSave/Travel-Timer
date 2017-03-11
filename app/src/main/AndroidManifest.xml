@@ -58,9 +58,9 @@
             android:name=".FavoritesActivity"
             android:label="@string/favorites_title"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AddRoute"
-            android:label="@string/add_route_title"
-            />
+        <activity
+            android:name=".AddRoute"
+            android:label="@string/add_route_title" />
     </application>
 
 </manifest>

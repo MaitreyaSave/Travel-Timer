@@ -8,4 +8,20 @@
         app:showAsAction="ifRoom"
         >
     </item>
+    <item
+        android:id="@+id/action_cancel_delete"
+        android:title="@string/cancel_button"
+        android:icon="@drawable/ic_action_close"
+        app:showAsAction="ifRoom"
+        android:visible="false"
+        >
+    </item>
+    <item
+        android:id="@+id/action_ok_delete"
+        android:title="@string/ok_button"
+        android:icon="@drawable/ic_action_check"
+        app:showAsAction="ifRoom"
+        android:visible="false"
+        >
+    </item>
 </menu>

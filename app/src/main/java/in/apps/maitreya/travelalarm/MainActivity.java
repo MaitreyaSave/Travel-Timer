@@ -25,6 +25,7 @@ import android.os.Vibrator;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
@@ -38,9 +39,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Locale;
 
@@ -51,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     static final int SETTINGS = 2; // The request code for settings
     static final int FAVORITES = 3; // The request code for FAVORITES
     boolean serviceStarted;
+    NotificationManager notificationManager;
+    int position = -1;
+    //
+    boolean exit;
     //
     TextView v1, v2, v3, v4;
     SeekBar seekBarAlarmDistance;
@@ -65,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     LatLng source, destination, currentLocation;
     LocationManager locationManager;
     MyReceiver myReceiver;
+    List<Route> routeList;
+    Gson gson;
+    SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,10 +101,14 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             editor.putInt("maxAlarm", maxAlarmDistance);
             editor.apply();
         }
-        SharedPreferences sp=getSharedPreferences(MY_PREFS_NAME,MODE_PRIVATE);
+        sp=getSharedPreferences(MY_PREFS_NAME,MODE_PRIVATE);
         maxAlarmDistance=sp.getInt("maxAlarm",-1);
         minAlarmDistance=sp.getInt("minAlarm",-1);
         notification_flag=sp.getBoolean("notif",false);
+        //
+        getListfromSharedPreferences();
+        //
+
         seekBarAlarmDistance.setMax(maxAlarmDistance - minAlarmDistance);
         //
 }
@@ -137,12 +152,19 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         // Check which request we're responding to
 
         if (requestCode == SETTINGS){
-            if ((resultCode == RESULT_OK)){
+            if (resultCode == RESULT_OK){
                 SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
                 minAlarmDistance=prefs.getInt("minAlarm",-1);
                 maxAlarmDistance=prefs.getInt("maxAlarm",-1);
                 notification_flag=prefs.getBoolean("notif",false);
                 seekBarAlarmDistance.setMax(maxAlarmDistance-minAlarmDistance);
+            }
+        }
+        else if(requestCode == FAVORITES){
+            if(resultCode == RESULT_OK){
+                position=data.getIntExtra("pos",-1);
+                getListfromSharedPreferences();
+                setValues();
             }
         }
         else {
@@ -288,6 +310,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                         //
                         intent.putExtra("act_dist", actual_dis);
                         intent.putExtra("alarm_dist", alarm_dis);
+                        intent.putExtra("notif",notification_flag);
                         //
                         global = intent;
                         serviceStarted = true;
@@ -307,6 +330,9 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     }
     public void stopBLS(View v){
         stopBackgroundLocationService();
+        if(notificationManager!=null)
+        notificationManager.cancelAll();
+
     }
     public void stopBackgroundLocationService(){
         if(serviceStarted) {
@@ -358,8 +384,9 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         builder.setContentIntent(contentIntent);
 
         // Add as notification
-        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(0, builder.build());
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, builder.build());
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -403,6 +430,34 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         File f = new File(getApplicationContext().getApplicationInfo().dataDir + "/shared_prefs/"
                 + fileName + ".xml");
         return f.exists();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(exit)
+            super.onBackPressed();
+        else {
+            exit = true;
+            Toast.makeText(this, "Press back again to exit!", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void setValues(){
+        if (position!=-1){
+            Route r=routeList.get(position);
+            v1.setText(r.getSourceString());
+            source=r.getSource();
+            v2.setText(r.getDestinationString());
+            destination=r.getDestination();
+            calculateDistance(source,destination);
+        }
+    }
+    public void getListfromSharedPreferences(){
+        //
+        gson = new Gson();
+        String json = sp.getString("Route","");
+        Type type = new TypeToken<List<Route>>(){}.getType();
+        routeList =gson.fromJson(json, type);
+        //
     }
 
 }
