@@ -19,15 +19,16 @@ import java.util.Locale;
 
 /**
  * Created by Maitreya on 26-Feb-17.
+ *
  */
 
-public class GeoAutoCompleteAdapter extends BaseAdapter implements Filterable {
+class GeoAutoCompleteAdapter extends BaseAdapter implements Filterable {
 
-    private static final int MAX_RESULTS = 10;
+    //private static final int MAX_RESULTS = 10;
     private Context mContext;
     private List resultList = new ArrayList();
 
-    public GeoAutoCompleteAdapter(Context context) {
+    GeoAutoCompleteAdapter(Context context) {
         mContext = context;
     }
 
@@ -100,14 +101,14 @@ public class GeoAutoCompleteAdapter extends BaseAdapter implements Filterable {
         }
         //
         Geocoder geocoder = new Geocoder(context, locale);
-        List<Address> addresses = null;
+        List<Address> addresses;
 
         try {
             // Getting a maximum of 15 Address that matches the input text
             addresses = geocoder.getFromLocationName(query_text, 15);
 
             for(int i=0;i<addresses.size();i++){
-                Address address = (Address) addresses.get(i);
+                Address address =  addresses.get(i);
                 if(address.getMaxAddressLineIndex() != -1)
                 {
                     geo_search_results.add(new GeoSearchResult(address));

@@ -15,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,8 +28,8 @@ import static in.apps.maitreya.travelalarm.MainActivity.MY_PREFS_NAME;
 public class FavoritesActivity extends AppCompatActivity {
 
     static final int ADD_REQ = 0;  // The request code for add
-    private RecyclerView recyclerView;
-    private List<Route> routeList = new ArrayList<>();;
+    RecyclerView recyclerView;
+    private List<Route> routeList = new ArrayList<>();
     private RecyclerFavoritesAdapter mAdapter;
     private Context ctx=this;
     SharedPreferences appSharedPrefs;
@@ -82,7 +81,6 @@ public class FavoritesActivity extends AppCompatActivity {
         //
 
         mAdapter =new RecyclerFavoritesAdapter(routeList);
-        mAdapter.setCtx(this);
         RecyclerView.LayoutManager mLayoutManager =new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -144,6 +142,7 @@ public class FavoritesActivity extends AppCompatActivity {
                 prefsEditor.apply();
                 //
                 toggleDelete(false,true);
+                mAdapter.notify(routeList);
                 fab.setVisibility(View.VISIBLE);
                 toolbar.setNavigationIcon(R.drawable.ic_action_arrow_back);
                 break;

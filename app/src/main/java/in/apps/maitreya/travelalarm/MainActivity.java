@@ -16,17 +16,12 @@ import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -115,12 +110,12 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void mapD(View v) {
-        Functions.mapSD(v,this,MAP_DESTINATION_REQ,MY_PERMISSIONS_REQUEST_LOCATION,locationManager);
+        Functions.mapSD(this,MAP_DESTINATION_REQ,MY_PERMISSIONS_REQUEST_LOCATION,locationManager);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void mapS(View v) {
-        Functions.mapSD(v,this,MAP_SOURCE_REQ,MY_PERMISSIONS_REQUEST_LOCATION,locationManager);
+        Functions.mapSD(this,MAP_SOURCE_REQ,MY_PERMISSIONS_REQUEST_LOCATION,locationManager);
     }
 
     @Override

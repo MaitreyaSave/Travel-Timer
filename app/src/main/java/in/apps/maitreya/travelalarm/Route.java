@@ -4,6 +4,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by Maitreya on 11-Mar-17.
+ *
  */
 
 public class Route {
@@ -24,46 +25,47 @@ public class Route {
         return title;
     }
 
-    public void setTitle(String title) {
+    /*public void setTitle(String title) {
         this.title = title;
     }
-    public LatLng getDestination() {
+    */
+    LatLng getDestination() {
         return destination;
     }
 
-    public void setDestination(LatLng destination) {
+    void setDestination(LatLng destination) {
         this.destination = destination;
     }
 
-    public LatLng getSource() {
+    LatLng getSource() {
         return source;
     }
 
-    public void setSource(LatLng source) {
+    void setSource(LatLng source) {
         this.source = source;
     }
 
-    public String getSourceString() {
+    String getSourceString() {
         return sourceString;
     }
 
-    public void setSourceString(String sourceString) {
+    void setSourceString(String sourceString) {
         this.sourceString = sourceString;
     }
 
-    public String getDestinationString() {
+    String getDestinationString() {
         return destinationString;
     }
 
-    public void setDestinationString(String destinationString) {
+    void setDestinationString(String destinationString) {
         this.destinationString = destinationString;
     }
 
-    public boolean isDeleteYN() {
+    boolean isDeleteYN() {
         return deleteYN;
     }
 
-    public void setDeleteYN(boolean deleteYN) {
+    void setDeleteYN(boolean deleteYN) {
         this.deleteYN = deleteYN;
     }
 }

@@ -3,7 +3,6 @@ package in.apps.maitreya.travelalarm;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -12,8 +11,6 @@ import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.Toast;
-
-import static in.apps.maitreya.travelalarm.MainActivity.MY_PREFS_NAME;
 
 /**
  * Created by Maitreya on 05-Feb-17.

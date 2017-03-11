@@ -59,11 +59,11 @@ public class AddRoute extends AppCompatActivity {
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void mapAddD(View v){
-        Functions.mapSD(v,this,MAP_DESTINATION_REQ_ADD,MY_PERMISSIONS_REQUEST_LOCATION,locationManagerAdd);
+        Functions.mapSD(this,MAP_DESTINATION_REQ_ADD,MY_PERMISSIONS_REQUEST_LOCATION,locationManagerAdd);
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void mapAddS(View v){
-        Functions.mapSD(v,this,MAP_SOURCE_REQ_ADD,MY_PERMISSIONS_REQUEST_LOCATION,locationManagerAdd);
+        Functions.mapSD(this,MAP_SOURCE_REQ_ADD,MY_PERMISSIONS_REQUEST_LOCATION,locationManagerAdd);
     }
     //
 

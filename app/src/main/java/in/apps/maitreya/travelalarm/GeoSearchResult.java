@@ -7,16 +7,15 @@ import android.location.Address;
  *
  */
 
-public class GeoSearchResult {
-
+class GeoSearchResult {
     private Address address;
 
-    public GeoSearchResult(Address address)
+    GeoSearchResult(Address address)
     {
         this.address = address;
     }
 
-    public String getAddressAsString(){
+    String getAddressAsString(){
 
         String display_address = "";
         display_address += address.getAddressLine(0) + "\n";
@@ -30,7 +29,7 @@ public class GeoSearchResult {
 
         return display_address;
     }
-    public Address getAddress(){
+    Address getAddress(){
         return address;
     }
     public String toString(){

@@ -1,8 +1,5 @@
 package in.apps.maitreya.travelalarm;
 
-import android.content.Context;
-import android.location.Address;
-import android.location.Geocoder;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,29 +8,26 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.LatLng;
-
-import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by Maitreya on 11-Mar-17.
+ *
  */
 
-public class RecyclerFavoritesAdapter extends RecyclerView.Adapter<RecyclerFavoritesAdapter.ViewHolder> {
+class RecyclerFavoritesAdapter extends RecyclerView.Adapter<RecyclerFavoritesAdapter.ViewHolder> {
     private List<Route> routeList;
     private boolean showCheck;
-    private Context ctx;
+    //
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView routeTitle,routeSource,routeDestination;
-        public CheckBox checkDelete;
-        public CardView cardView;
-        public ViewHolder(View v) {
+        TextView routeTitle,routeSource,routeDestination;
+        CheckBox checkDelete;
+        CardView cardView;
+        ViewHolder(View v) {
             super(v);
             routeTitle = (TextView) v.findViewById(R.id.route_title);
             routeSource = (TextView) v.findViewById(R.id.route_map_source);
@@ -44,7 +38,7 @@ public class RecyclerFavoritesAdapter extends RecyclerView.Adapter<RecyclerFavor
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public RecyclerFavoritesAdapter(List<Route> routeList) {
+    RecyclerFavoritesAdapter(List<Route> routeList) {
         this.routeList = routeList;
     }
 
@@ -58,9 +52,9 @@ public class RecyclerFavoritesAdapter extends RecyclerView.Adapter<RecyclerFavor
 
         // set the view's size, margins, paddings and layout parameters
 
-        ViewHolder vh = new ViewHolder(v);
+        //ViewHolder vh = new ViewHolder(v);
 
-        return vh;
+        return new ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -117,7 +111,7 @@ public class RecyclerFavoritesAdapter extends RecyclerView.Adapter<RecyclerFavor
     public int getItemCount() {
         return routeList.size();
     }
-    public void notify(List<Route> list) {
+    void notify(List<Route> list) {
         if (routeList != null) {
             routeList.clear();
             routeList.addAll(list);
@@ -127,15 +121,8 @@ public class RecyclerFavoritesAdapter extends RecyclerView.Adapter<RecyclerFavor
         }
         notifyDataSetChanged();
     }
-    public void showCheckboxes(boolean showCheck){
+    void showCheckboxes(boolean showCheck){
         this.showCheck=showCheck;
     }
 
-    public Context getCtx() {
-        return ctx;
-    }
-
-    public void setCtx(Context ctx) {
-        this.ctx = ctx;
-    }
 }

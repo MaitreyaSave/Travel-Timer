@@ -14,14 +14,14 @@ import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
-import android.view.View;
 
 /**
+ *
  * Created by Maitreya on 11-Mar-17.
  */
 
-public abstract class Functions {
-    public static void showGPSDisabledAlertToUser(final Activity a) {
+abstract class Functions {
+     static void showGPSDisabledAlertToUser(final Activity a) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(a);
         alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
                 .setCancelable(false)
@@ -42,7 +42,7 @@ public abstract class Functions {
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
     }
-    public static void showNetworkDisabledAlertToUser(final Activity a){
+     private static void showNetworkDisabledAlertToUser(final Activity a){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(a);
         alertDialogBuilder.setMessage("Internet Connection is disabled in your device. Would you like to enable it?")
                 .setCancelable(false)
@@ -63,7 +63,7 @@ public abstract class Functions {
         alert.show();
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public static void mapSD(View v,Activity a,int requestCode, int permissionsRequest,LocationManager locationManager) {
+     static void mapSD(Activity a,int requestCode, int permissionsRequest,LocationManager locationManager) {
         if (ActivityCompat.checkSelfPermission(a, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             a.requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     permissionsRequest);
@@ -84,14 +84,14 @@ public abstract class Functions {
         }
     }
 
-    public static boolean isNetworkAvailable(Activity a) {
+     private static boolean isNetworkAvailable(Activity a) {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) a.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    public static String getAddressAsString(Address address){
+     static String getAddressAsString(Address address){
 
         String display_address = "";
         display_address += address.getAddressLine(0) + "\n";
