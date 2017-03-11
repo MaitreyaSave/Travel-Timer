@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     static final int MAP_DESTINATION_REQ = 1;  // The request code for source
     static final int SETTINGS = 2; // The request code for settings
     static final int FAVORITES = 3; // The request code for FAVORITES
-    boolean destinationYN,serviceStarted;
+    boolean serviceStarted;
     //
     TextView v1, v2, v3, v4;
     SeekBar seekBarAlarmDistance;
@@ -98,81 +98,14 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         //
 }
 
-    private void showGPSDisabledAlertToUser() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
-                .setCancelable(false)
-                .setPositiveButton("Open Location Settings",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                Intent callGPSSettingIntent = new Intent(
-                                        android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                startActivity(callGPSSettingIntent);
-                            }
-                        });
-        alertDialogBuilder.setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert = alertDialogBuilder.create();
-        alert.show();
-    }
-    private void showNetworkDisabledAlertToUser(){
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("Internet Connection is disabled in your device. Would you like to enable it?")
-                .setCancelable(false)
-                .setPositiveButton("Open Network Settings",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                Intent intent=new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
-                                startActivity(intent);
-                            }
-                        });
-        alertDialogBuilder.setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert = alertDialogBuilder.create();
-        alert.show();
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void mapSD(View v) {
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    MY_PERMISSIONS_REQUEST_LOCATION);
-        } else {
-            if(isNetworkAvailable()){
-                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    Intent intent = new Intent(this, MapsActivity.class);
-                    if (destinationYN)
-                        startActivityForResult(intent, MAP_DESTINATION_REQ);
-                    else
-                        startActivityForResult(intent, MAP_SOURCE_REQ);
-                } else {
-                    showGPSDisabledAlertToUser();
-                }
-            }
-            else {
-                    showNetworkDisabledAlertToUser();
-            }
-        }
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void mapD(View v) {
-        destinationYN = true;
-        mapSD(v);
+        Functions.mapSD(v,this,MAP_DESTINATION_REQ,MY_PERMISSIONS_REQUEST_LOCATION,locationManager);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void mapS(View v) {
-        destinationYN = false;
-        mapSD(v);
+        Functions.mapSD(v,this,MAP_SOURCE_REQ,MY_PERMISSIONS_REQUEST_LOCATION,locationManager);
     }
 
     @Override
@@ -186,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                         Intent intent = new Intent(this, MapsActivity.class);
                         startActivityForResult(intent, MAP_SOURCE_REQ);
                     } else {
-                        showGPSDisabledAlertToUser();
+                        Functions.showGPSDisabledAlertToUser(this);
                     }
                 } else {
                     Toast.makeText(this, "Sorry! Location Access Permission needed!", Toast.LENGTH_SHORT).show();
@@ -230,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                         }
                     //
                     if (addressList != null)
-                        v1.setText(getAddressAsString(addressList.get(0)));
+                        v1.setText(Functions.getAddressAsString(addressList.get(0)));
                     //
                     if (destination != null)
                         calculateDistance(source, destination);
@@ -248,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                         }
                     //
                     if (addressList != null)
-                        v2.setText(getAddressAsString(addressList.get(0)));
+                        v2.setText(Functions.getAddressAsString(addressList.get(0)));
                     //
                     if (source != null)
                         calculateDistance(source, destination);
@@ -370,7 +303,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 Toast.makeText(this,"Source not selected!",Toast.LENGTH_SHORT).show();
         }
         else
-            showGPSDisabledAlertToUser();
+            Functions.showGPSDisabledAlertToUser(this);
     }
     public void stopBLS(View v){
         stopBackgroundLocationService();
@@ -408,20 +341,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         }
 
     }
-    public String getAddressAsString(Address address){
 
-        String display_address = "";
-        display_address += address.getAddressLine(0) + "\n";
-
-        for(int i = 1; i < address.getMaxAddressLineIndex(); i++)
-        {
-            display_address += address.getAddressLine(i) + ", ";
-        }
-
-        display_address = display_address.substring(0, display_address.length() - 2);
-
-        return display_address;
-    }
     //notification function
     public void sendNotification(String title,String content, boolean autocancel,boolean ongoing){
         NotificationCompat.Builder builder =
@@ -484,10 +404,5 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 + fileName + ".xml");
         return f.exists();
     }
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
+
 }

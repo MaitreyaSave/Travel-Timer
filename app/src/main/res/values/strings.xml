@@ -82,7 +82,10 @@
     <string name="kilometer">km</string>
 
     <!-- Favorites -->
-    <string name="favorites_title">Favorites</string>
+    <string name="favorites_title">Favorite Routes</string>
     <string name="favorites_add">Add</string>
     <string name="favorites_delete">Delete</string>
+
+    <!-- Add Route -->
+    <string name="add_route_title">Add Route</string>
 </resources>
