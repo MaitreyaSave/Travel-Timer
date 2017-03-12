@@ -73,6 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/map_destination"
         android:padding="10dp"
+        android:id="@+id/distance_linear_layout"
         android:orientation="horizontal">
     <android.support.v7.widget.CardView
         android:layout_width="0dp"
@@ -191,5 +192,32 @@
             </android.support.v7.widget.CardView>
 
         </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:layout_marginStart="@dimen/fab_margin"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginTop="-25dp"
+        app:backgroundTint="@color/purple"
+        app:srcCompat="@drawable/ic_action_swap_vert"
+        android:layout_below="@id/map_source"
+        android:onClick="swapSD"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_below="@id/distance_linear_layout"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:id="@+id/image_lock"
+        android:src="@drawable/ic_lock"
+        tools:ignore="ContentDescription"
+        />
+    </LinearLayout>
 
 </RelativeLayout>

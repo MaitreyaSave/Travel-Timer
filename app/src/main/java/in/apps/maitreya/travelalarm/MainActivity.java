@@ -29,6 +29,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     boolean exit;
     //
     TextView v1, v2, v3, v4;
+    ImageView lock_view;
     SeekBar seekBarAlarmDistance;
     Intent global;
     public static final String MY_PREFS_NAME = "MySharedPrefsFile";
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     Vibrator v;
     float alarm_dis, actual_dis;
     int minAlarmDistance,maxAlarmDistance;
-    boolean notification_flag;
+    boolean notification_flag,lock_flag;
     static MediaPlayer mMediaPlayer;
     LatLng source, destination, currentLocation;
     LocationManager locationManager;
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     List<Route> routeList;
     Gson gson;
     SharedPreferences sp;
+    String sourceString,destinationString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,40 +84,59 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         v2 = (TextView) findViewById(R.id.destination_tv);
         v3 = (TextView) findViewById(R.id.calDis_tv);
         v4 = (TextView) findViewById(R.id.AlarmDis_tv);
+        lock_view = (ImageView) findViewById(R.id.image_lock);
         seekBarAlarmDistance= (SeekBar) findViewById(R.id.alarm_seek_bar);
         seekBarAlarmDistance.setOnSeekBarChangeListener(this);
         mMediaPlayer = new MediaPlayer();
+        sp=getSharedPreferences(MY_PREFS_NAME,MODE_PRIVATE);
         if(!preferenceFileExist(MY_PREFS_NAME)) {
             //default values
             minAlarmDistance = 1;
             maxAlarmDistance = 20;
             notification_flag=false;
+            lock_flag=false;
+            source=null;
+            destination=null;
+            sourceString="";
+            destinationString="";
             //
-            SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-            editor.putBoolean("notif", notification_flag);
-            editor.putInt("minAlarm", minAlarmDistance);
-            editor.putInt("maxAlarm", maxAlarmDistance);
-            editor.apply();
+            addToSharedPrefs();
         }
-        sp=getSharedPreferences(MY_PREFS_NAME,MODE_PRIVATE);
-        maxAlarmDistance=sp.getInt("maxAlarm",-1);
-        minAlarmDistance=sp.getInt("minAlarm",-1);
-        notification_flag=sp.getBoolean("notif",false);
+
         //
-        getListfromSharedPreferences();
+        getFromSharedPrefs();
+        getListFromSharedPreferences();
         //
 
         seekBarAlarmDistance.setMax(maxAlarmDistance - minAlarmDistance);
         //
+        if (lock_flag)
+            lock_view.setVisibility(View.VISIBLE);
+        else
+            lock_view.setVisibility(View.GONE);
+        //
+        if(lock_flag) {
+            if (!sourceString.equals(""))
+                v1.setText(sourceString);
+            if (!destinationString.equals(""))
+                v2.setText(destinationString);
+            calculateDistance(source, destination);
+        }
 }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void mapD(View v) {
-        Functions.mapSD(this,MAP_DESTINATION_REQ,MY_PERMISSIONS_REQUEST_LOCATION,locationManager);
+        if(lock_flag)
+            Toast.makeText(this,"Cannot change destination when locked!",Toast.LENGTH_SHORT).show();
+        else
+            Functions.mapSD(this,MAP_DESTINATION_REQ,MY_PERMISSIONS_REQUEST_LOCATION,locationManager);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void mapS(View v) {
+        if(lock_flag)
+            Toast.makeText(this,"Cannot change source when locked!",Toast.LENGTH_SHORT).show();
+        else
         Functions.mapSD(this,MAP_SOURCE_REQ,MY_PERMISSIONS_REQUEST_LOCATION,locationManager);
     }
 
@@ -148,17 +170,24 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
         if (requestCode == SETTINGS){
             if (resultCode == RESULT_OK){
-                SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-                minAlarmDistance=prefs.getInt("minAlarm",-1);
-                maxAlarmDistance=prefs.getInt("maxAlarm",-1);
-                notification_flag=prefs.getBoolean("notif",false);
+                getFromSharedPrefs();
                 seekBarAlarmDistance.setMax(maxAlarmDistance-minAlarmDistance);
+                //
+                if (lock_flag) {
+                    lock_view.setVisibility(View.VISIBLE);
+                    //
+                    addToSharedPrefs();
+                    //
+                }
+                else
+                    lock_view.setVisibility(View.GONE);
+                //
             }
         }
         else if(requestCode == FAVORITES){
             if(resultCode == RESULT_OK){
                 position=data.getIntExtra("pos",-1);
-                getListfromSharedPreferences();
+                getListFromSharedPreferences();
                 setValues();
             }
         }
@@ -398,8 +427,12 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 startActivityForResult(i,SETTINGS);
                 break;
             case R.id.action_favorites:
-                Intent i1=new Intent(this,FavoritesActivity.class);
-                startActivityForResult(i1,FAVORITES);
+                if(lock_flag)
+                    Toast.makeText(this,"Cannot open favorites when locked!",Toast.LENGTH_SHORT).show();
+                else {
+                    Intent i1 = new Intent(this, FavoritesActivity.class);
+                    startActivityForResult(i1, FAVORITES);
+                }
                 break;
             default:
                 break;
@@ -439,14 +472,17 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     public void setValues(){
         if (position!=-1){
             Route r=routeList.get(position);
-            v1.setText(r.getSourceString());
+            sourceString=r.getSourceString();
             source=r.getSource();
-            v2.setText(r.getDestinationString());
+            destinationString=r.getDestinationString();
             destination=r.getDestination();
+            v1.setText(sourceString);
+            v2.setText(destinationString);
+            addToSharedPrefs();
             calculateDistance(source,destination);
         }
     }
-    public void getListfromSharedPreferences(){
+    public void getListFromSharedPreferences(){
         //
         gson = new Gson();
         String json = sp.getString("Route","");
@@ -454,5 +490,73 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         routeList =gson.fromJson(json, type);
         //
     }
+    public void swapSD(View v){
+        LatLng s=source;
+        source=destination;
+        destination=s;
+        String tempString=v1.getText().toString();
+        v1.setText(sourceString=v2.getText().toString());
+        v2.setText(destinationString=tempString);
+        addToSharedPrefs();
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (lock_flag)
+            addToSharedPrefs();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (lock_flag)
+            addToSharedPrefs();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(lock_flag) {
+            getFromSharedPrefs();
+            v1.setText(sourceString);
+            v2.setText(destinationString);
+        }
+    }
+    public void addToSharedPrefs(){
+        //
+        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putBoolean("notif", notification_flag);
+        editor.putInt("minAlarm", minAlarmDistance);
+        editor.putInt("maxAlarm", maxAlarmDistance);
+        editor.putBoolean("lock",lock_flag);
+        editor.putString("sourceS",sourceString);
+        editor.putString("destinationS",destinationString);
+        //
+        gson = new Gson();
+        String json = gson.toJson(source);
+        editor.putString("source", json);
+        gson = new Gson();
+        json = gson.toJson(destination);
+        editor.putString("destination", json);
+        //
+        editor.apply();
+    }
+    public void getFromSharedPrefs(){
+        maxAlarmDistance=sp.getInt("maxAlarm",-1);
+        minAlarmDistance=sp.getInt("minAlarm",-1);
+        notification_flag=sp.getBoolean("notif",false);
+        lock_flag=sp.getBoolean("lock",false);
+        //
+        gson = new Gson();
+        String json = sp.getString("source","");
+        Type type = new TypeToken<LatLng>(){}.getType();
+        source= gson.fromJson(json, type);
+        gson = new Gson();
+        json = sp.getString("destination","");
+        destination= gson.fromJson(json,type);
+        //
+        sourceString=sp.getString("sourceS","");
+        destinationString=sp.getString("destinationS","");
+    }
 }

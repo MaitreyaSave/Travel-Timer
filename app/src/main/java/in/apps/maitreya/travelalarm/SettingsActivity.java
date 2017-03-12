@@ -14,7 +14,7 @@ import static in.apps.maitreya.travelalarm.MainActivity.MY_PREFS_NAME;
 public class SettingsActivity extends AppCompatActivity {
     int minAlarmDistance,maxAlarmDistance;
     EditText et1,et2;
-    Switch aSwitch;
+    Switch aSwitch,lockSwitch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,8 +22,10 @@ public class SettingsActivity extends AppCompatActivity {
         et1= (EditText) findViewById(R.id.min_alarm_et);
         et2= (EditText) findViewById(R.id.max_alarm_et);
         aSwitch= (Switch) findViewById(R.id.settings_notification_switch);
+        lockSwitch= (Switch) findViewById(R.id.settings_lock_switch);
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         aSwitch.setChecked(prefs.getBoolean("notif",false));
+        lockSwitch.setChecked(prefs.getBoolean("lock",false));
         et1.setText(""+prefs.getInt("minAlarm",-1)+"");
         et2.setText(""+prefs.getInt("maxAlarm",-1)+"");
         //
@@ -60,6 +62,7 @@ public class SettingsActivity extends AppCompatActivity {
         else {
             SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
             editor.putBoolean("notif",aSwitch.isChecked());
+            editor.putBoolean("lock",lockSwitch.isChecked());
             editor.putInt("minAlarm",minAlarmDistance);
             editor.putInt("maxAlarm",maxAlarmDistance);
             editor.apply();
