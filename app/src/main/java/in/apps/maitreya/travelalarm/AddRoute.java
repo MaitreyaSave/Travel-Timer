@@ -20,6 +20,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -148,6 +149,8 @@ public class AddRoute extends AppCompatActivity {
             //
             route.setDestinationString(s);
             //
+            if(routeList==null)
+                routeList=new ArrayList<>();
             routeList.add(route);
             //
             SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();

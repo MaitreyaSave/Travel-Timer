@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -84,6 +85,9 @@ public class FavoritesActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager =new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        //
+        mAdapter.setCtx(this);
+        //
         recyclerView.setAdapter(mAdapter);
         //
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
@@ -101,12 +105,15 @@ public class FavoritesActivity extends AppCompatActivity {
         //
 
         //
-        if (routeList.size()==0)
-            no_list.setVisibility(View.VISIBLE);
+        if(routeList!=null) {
+            if (routeList.size() == 0)
+                no_list.setVisibility(View.VISIBLE);
+            else
+                no_list.setVisibility(View.GONE);
+            //
+        }
         else
-            no_list.setVisibility(View.GONE);
-        //
-
+            no_list.setVisibility(View.VISIBLE);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -122,19 +129,25 @@ public class FavoritesActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.action_delete:
-                toggleDelete(true,false);
-                fab.setVisibility(View.GONE);
-                toolbar.setNavigationIcon(null);
+                if(routeList.size()>0) {
+                    toggleDelete(true, false);
+                    fab.setVisibility(View.GONE);
+                    toolbar.setNavigationIcon(null);
+                }
+                else
+                    Toast.makeText(this,"There are no routes to delete!",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_ok_delete:
                 //
                 for(int i=0;i<routeList.size();i++){
                     if(routeList.get(i).isDeleteYN()) {
                         routeList.remove(i);
+                        mAdapter.notifyItemRemoved(i);
                         i--;
                     }
                 }
                 //
+                Toast.makeText(this,"routes "+routeList.size(),Toast.LENGTH_SHORT).show();
                 SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
                 gson = new Gson();
                 String json = gson.toJson(routeList);
@@ -142,9 +155,25 @@ public class FavoritesActivity extends AppCompatActivity {
                 prefsEditor.apply();
                 //
                 toggleDelete(false,true);
+                Toast.makeText(this,"routes_later "+routeList.size(),Toast.LENGTH_SHORT).show();
+
+                //
+                gson = new Gson();
+                json = appSharedPrefs.getString("Route", "");
+                Type type = new TypeToken<List<Route>>() {
+                }.getType();
+                routeList = gson.fromJson(json, type);
+                //
+
+
+
                 mAdapter.notify(routeList);
+                Toast.makeText(this,"notify_routes_later "+routeList.size(),Toast.LENGTH_SHORT).show();
                 fab.setVisibility(View.VISIBLE);
                 toolbar.setNavigationIcon(R.drawable.ic_action_arrow_back);
+                if(routeList.size()==0)
+                    no_list.setVisibility(View.VISIBLE);
+
                 break;
             case R.id.action_cancel_delete:
                 toggleDelete(false,true);
@@ -184,6 +213,8 @@ public class FavoritesActivity extends AppCompatActivity {
                 Type type = new TypeToken<List<Route>>() {
                 }.getType();
                 routeList = gson.fromJson(json, type);
+
+                //
                 mAdapter.notify(routeList);
                 //Toast.makeText(this,"Ok result",Toast.LENGTH_SHORT).show();
                 if (routeList.size()==0)

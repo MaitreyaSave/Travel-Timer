@@ -1,5 +1,6 @@
 package in.apps.maitreya.travelalarm;
 
+import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -18,6 +20,13 @@ import java.util.List;
 class RecyclerFavoritesAdapter extends RecyclerView.Adapter<RecyclerFavoritesAdapter.ViewHolder> {
     private List<Route> routeList;
     private boolean showCheck;
+    //
+    Context ctx;
+
+    public void setCtx(Context ctx) {
+        this.ctx = ctx;
+    }
+
     //
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -71,6 +80,12 @@ class RecyclerFavoritesAdapter extends RecyclerView.Adapter<RecyclerFavoritesAda
         if (showCheck) {
             holder.checkDelete.setVisibility(View.VISIBLE);
             //
+            if(routeList.get(position).isDeleteYN())
+                holder.checkDelete.setChecked(true);
+            else
+                holder.checkDelete.setChecked(false);
+            //
+            //
             holder.checkDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -78,6 +93,7 @@ class RecyclerFavoritesAdapter extends RecyclerView.Adapter<RecyclerFavoritesAda
                         routeList.get(position).setDeleteYN(true);
                     else
                         routeList.get(position).setDeleteYN(false);
+                    Toast.makeText(ctx,"pos "+position+" "+holder.checkDelete.isChecked(),Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -109,7 +125,10 @@ class RecyclerFavoritesAdapter extends RecyclerView.Adapter<RecyclerFavoritesAda
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return routeList.size();
+        if(routeList!=null)
+            return routeList.size();
+        else
+            return 0;
     }
     void notify(List<Route> list) {
         if (routeList != null) {
