@@ -147,7 +147,6 @@ public class FavoritesActivity extends AppCompatActivity {
                     }
                 }
                 //
-                Toast.makeText(this,"routes "+routeList.size(),Toast.LENGTH_SHORT).show();
                 SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
                 gson = new Gson();
                 String json = gson.toJson(routeList);
@@ -155,7 +154,6 @@ public class FavoritesActivity extends AppCompatActivity {
                 prefsEditor.apply();
                 //
                 toggleDelete(false,true);
-                Toast.makeText(this,"routes_later "+routeList.size(),Toast.LENGTH_SHORT).show();
 
                 //
                 gson = new Gson();
@@ -164,11 +162,7 @@ public class FavoritesActivity extends AppCompatActivity {
                 }.getType();
                 routeList = gson.fromJson(json, type);
                 //
-
-
-
                 mAdapter.notify(routeList);
-                Toast.makeText(this,"notify_routes_later "+routeList.size(),Toast.LENGTH_SHORT).show();
                 fab.setVisibility(View.VISIBLE);
                 toolbar.setNavigationIcon(R.drawable.ic_action_arrow_back);
                 if(routeList.size()==0)
@@ -216,7 +210,6 @@ public class FavoritesActivity extends AppCompatActivity {
 
                 //
                 mAdapter.notify(routeList);
-                //Toast.makeText(this,"Ok result",Toast.LENGTH_SHORT).show();
                 if (routeList.size()==0)
                     no_list.setVisibility(View.VISIBLE);
                 else
