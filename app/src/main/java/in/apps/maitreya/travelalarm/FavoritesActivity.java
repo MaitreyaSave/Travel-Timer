@@ -86,7 +86,6 @@ public class FavoritesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         //
-        mAdapter.setCtx(this);
         //
         recyclerView.setAdapter(mAdapter);
         //
@@ -129,10 +128,14 @@ public class FavoritesActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.action_delete:
-                if(routeList.size()>0) {
-                    toggleDelete(true, false);
-                    fab.setVisibility(View.GONE);
-                    toolbar.setNavigationIcon(null);
+                if(routeList!=null) {
+                    if (routeList.size() > 0) {
+                        setTitle(R.string.favorites_delete);
+                        toggleDelete(true, false);
+                        fab.setVisibility(View.GONE);
+                        toolbar.setNavigationIcon(null);
+                    } else
+                        Toast.makeText(this, "There are no routes to delete!", Toast.LENGTH_SHORT).show();
                 }
                 else
                     Toast.makeText(this,"There are no routes to delete!",Toast.LENGTH_SHORT).show();
@@ -165,14 +168,16 @@ public class FavoritesActivity extends AppCompatActivity {
                 mAdapter.notify(routeList);
                 fab.setVisibility(View.VISIBLE);
                 toolbar.setNavigationIcon(R.drawable.ic_action_arrow_back);
+                setTitle(R.string.favorites_title);
                 if(routeList.size()==0)
                     no_list.setVisibility(View.VISIBLE);
-
+                //
                 break;
             case R.id.action_cancel_delete:
                 toggleDelete(false,true);
                 fab.setVisibility(View.VISIBLE);
                 toolbar.setNavigationIcon(R.drawable.ic_action_arrow_back);
+                setTitle(R.string.favorites_title);
                 break;
             default:
                 break;

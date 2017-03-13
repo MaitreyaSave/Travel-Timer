@@ -21,9 +21,8 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_settings" />
-
     <LinearLayout
+        android:id="@+id/settings_linear_layout"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:padding="10dp"
@@ -113,5 +112,27 @@
                 android:text="@string/kilometer"/>
         </LinearLayout>
     </LinearLayout>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:layout_gravity="center|bottom"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp"
+        app:cardBackgroundColor="@color/purple"
+        android:onClick="openFeedback"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/feedback_button"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:padding="10dp"
+            />
+    </android.support.v7.widget.CardView>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -70,7 +70,7 @@
     <string name="map_geo_search_clear_input">Clear Input</string>
     <!-- Optional strings -->
     <string name="calculate_distance">Actual Distance</string>
-    <string name="default_value">Open map</string>
+    <string name="default_value">Select Location</string>
 
     <!-- Settings -->
     <string name="settings_title">Settings</string>
@@ -91,4 +91,14 @@
     <!-- Add Route -->
     <string name="add_route_title">Add Route</string>
     <string name="name_route">Name: </string>
+
+    <!-- Feedback -->
+    <string name="feedback_title">Feedback</string>
+    <string name="feedback_button">Submit Feedback</string>
+    <string name="feedback_email_id">maitreya.save@gmail.com</string>
+    <string name="feedback_email">Email</string>
+    <string name="feedback_fb">Facebook</string>
+    <string name="feedback_playstore">Google Playstore</string>
+    <string name="feedback_email_image_content_description">Open Email</string>
+
 </resources>

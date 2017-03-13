@@ -20,12 +20,6 @@ import java.util.List;
 class RecyclerFavoritesAdapter extends RecyclerView.Adapter<RecyclerFavoritesAdapter.ViewHolder> {
     private List<Route> routeList;
     private boolean showCheck;
-    //
-    Context ctx;
-
-    public void setCtx(Context ctx) {
-        this.ctx = ctx;
-    }
 
     //
     // Provide a reference to the views for each data item
@@ -93,7 +87,6 @@ class RecyclerFavoritesAdapter extends RecyclerView.Adapter<RecyclerFavoritesAda
                         routeList.get(position).setDeleteYN(true);
                     else
                         routeList.get(position).setDeleteYN(false);
-                    Toast.makeText(ctx,"pos "+position+" "+holder.checkDelete.isChecked(),Toast.LENGTH_SHORT).show();
                 }
             });
 

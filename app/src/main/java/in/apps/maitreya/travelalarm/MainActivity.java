@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     Vibrator v;
     float alarm_dis, actual_dis;
     int minAlarmDistance,maxAlarmDistance;
-    boolean notification_flag,lock_flag;
+    boolean notification_flag,lock_flag,show_popup;
     static MediaPlayer mMediaPlayer;
     LatLng source, destination, currentLocation;
     LocationManager locationManager;
@@ -74,6 +74,10 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     Gson gson;
     SharedPreferences sp;
     String sourceString,destinationString;
+
+    //
+    Context ctx=this;
+    //
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             maxAlarmDistance = 20;
             notification_flag=false;
             lock_flag=false;
+            show_popup=true;
             source=null;
             destination=null;
             sourceString="";
@@ -291,14 +296,49 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //
+        //
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        AlertDialog alert;
+        //
+        getFromSharedPrefs();
+        if(show_popup){
+            //
+            show_popup=false;
+            addToSharedPrefs();
+            //
+            alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setMessage("Hi, how is your experience with the app?\nWould you like to give us some feedback?")
+                    .setTitle("Give feedback?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent i=new Intent(ctx,FeedbackActivity.class);
+                                    startActivity(i);
+                                }
+                            });
+            alertDialogBuilder.setNegativeButton("Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            alert = alertDialogBuilder.create();
+            alert.show();
+        }
+        //
+        //
+
         alertDialogBuilder.setMessage("Turn off Alarm?")
                 .setCancelable(false)
+                .setTitle("")
                 .setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 mMediaPlayer.stop();
                                 v.cancel();
+                                notificationManager.cancelAll();
                             }
                         });
         alertDialogBuilder.setNegativeButton("Cancel",
@@ -307,8 +347,9 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                         dialog.cancel();
                     }
                 });
-        AlertDialog alert = alertDialogBuilder.create();
+        alert = alertDialogBuilder.create();
         alert.show();
+        //
     }
     public void startBLS(View v) {
         //
@@ -530,6 +571,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         editor.putInt("minAlarm", minAlarmDistance);
         editor.putInt("maxAlarm", maxAlarmDistance);
         editor.putBoolean("lock",lock_flag);
+        editor.putBoolean("popup",show_popup);
         editor.putString("sourceS",sourceString);
         editor.putString("destinationS",destinationString);
         //
@@ -547,6 +589,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         minAlarmDistance=sp.getInt("minAlarm",-1);
         notification_flag=sp.getBoolean("notif",false);
         lock_flag=sp.getBoolean("lock",false);
+        show_popup=sp.getBoolean("popup",false);
         //
         gson = new Gson();
         String json = sp.getString("source","");

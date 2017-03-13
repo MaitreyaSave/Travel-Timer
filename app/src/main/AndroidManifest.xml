@@ -61,6 +61,10 @@
         <activity
             android:name=".AddRoute"
             android:label="@string/add_route_title" />
+        <activity android:name=".FeedbackActivity"
+            android:label="@string/feedback_title"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
     </application>
 
 </manifest>
