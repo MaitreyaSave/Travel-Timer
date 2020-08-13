@@ -7,8 +7,8 @@ import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -71,6 +71,7 @@ public class AddRoute extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         Geocoder geocoder;
         List<Address> addressList = null;
         geocoder = new Geocoder(this, Locale.getDefault());
@@ -91,8 +92,7 @@ public class AddRoute extends AppCompatActivity {
                     v1.setText(Functions.getAddressAsString(addressList.get(0)));
                 //
             }
-        }
-        else if (requestCode == MAP_DESTINATION_REQ_ADD) {
+        } else if (requestCode == MAP_DESTINATION_REQ_ADD) {
             if (resultCode == RESULT_OK) {
                 Bundle b = data.getExtras();
                 destination = (LatLng) b.get("marker_latlng");

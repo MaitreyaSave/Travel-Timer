@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="in.apps.maitreya.travelalarm.AddRoute">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/title_route"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,9 +34,9 @@
                 />
 
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/map_source_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,8 +66,8 @@
                 android:id="@+id/source_tv_add"
                 />
         </LinearLayout>
-    </android.support.v7.widget.CardView>
-    <android.support.v7.widget.CardView
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
         android:id="@+id/map_destination_add"
         android:text="@string/map_destination"
         android:layout_width="match_parent"
@@ -98,9 +98,9 @@
                 android:textColor="@color/blue_grey_500"
                 />
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fab_ok"
@@ -111,7 +111,7 @@
         android:onClick="done"
         app:backgroundTint="@color/purple"
         />
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fab_cancel"

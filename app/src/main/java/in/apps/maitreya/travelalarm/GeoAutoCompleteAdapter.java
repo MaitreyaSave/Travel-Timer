@@ -26,7 +26,7 @@ class GeoAutoCompleteAdapter extends BaseAdapter implements Filterable {
 
     //private static final int MAX_RESULTS = 10;
     private Context mContext;
-    private List resultList = new ArrayList();
+    private List<GeoSearchResult> resultList = new ArrayList<>();
 
     GeoAutoCompleteAdapter(Context context) {
         mContext = context;
@@ -39,7 +39,7 @@ class GeoAutoCompleteAdapter extends BaseAdapter implements Filterable {
 
     @Override
     public GeoSearchResult getItem(int index) {
-        return (GeoSearchResult) resultList.get(index);
+        return resultList.get(index);
     }
 
     @Override
@@ -52,6 +52,7 @@ class GeoAutoCompleteAdapter extends BaseAdapter implements Filterable {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            assert inflater != null;
             convertView = inflater.inflate(R.layout.geo_search_result, parent, false);
         }
 
@@ -67,7 +68,7 @@ class GeoAutoCompleteAdapter extends BaseAdapter implements Filterable {
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
                 if (constraint != null) {
-                    List locations = findLocations(mContext, constraint.toString());
+                    List<GeoSearchResult> locations = findLocations(mContext, constraint.toString());
 
                     // Assign the data to the FilterResults
                     filterResults.values = locations;

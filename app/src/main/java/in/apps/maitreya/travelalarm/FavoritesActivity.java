@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -204,22 +204,23 @@ public class FavoritesActivity extends AppCompatActivity {
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case ADD_REQ:
-            if (resultCode == RESULT_OK) {
-                gson = new Gson();
-                String json = appSharedPrefs.getString("Route", "");
-                Type type = new TypeToken<List<Route>>() {
-                }.getType();
-                routeList = gson.fromJson(json, type);
+                if (resultCode == RESULT_OK) {
+                    gson = new Gson();
+                    String json = appSharedPrefs.getString("Route", "");
+                    Type type = new TypeToken<List<Route>>() {
+                    }.getType();
+                    routeList = gson.fromJson(json, type);
 
-                //
-                mAdapter.notify(routeList);
-                if (routeList.size()==0)
-                    no_list.setVisibility(View.VISIBLE);
-                else
-                    no_list.setVisibility(View.GONE);
-            }
+                    //
+                    mAdapter.notify(routeList);
+                    if (routeList.size() == 0)
+                        no_list.setVisibility(View.VISIBLE);
+                    else
+                        no_list.setVisibility(View.GONE);
+                }
         }
     }
 }

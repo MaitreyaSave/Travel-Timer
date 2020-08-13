@@ -20,11 +20,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -173,30 +173,28 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
 
-        if (requestCode == SETTINGS){
-            if (resultCode == RESULT_OK){
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SETTINGS) {
+            if (resultCode == RESULT_OK) {
                 getFromSharedPrefs();
-                seekBarAlarmDistance.setMax(maxAlarmDistance-minAlarmDistance);
+                seekBarAlarmDistance.setMax(maxAlarmDistance - minAlarmDistance);
                 //
                 if (lock_flag) {
                     lock_view.setVisibility(View.VISIBLE);
                     //
                     addToSharedPrefs();
                     //
-                }
-                else
+                } else
                     lock_view.setVisibility(View.GONE);
                 //
             }
-        }
-        else if(requestCode == FAVORITES){
-            if(resultCode == RESULT_OK){
-                position=data.getIntExtra("pos",-1);
+        } else if (requestCode == FAVORITES) {
+            if (resultCode == RESULT_OK) {
+                position = data.getIntExtra("pos", -1);
                 getListFromSharedPreferences();
                 setValues();
             }
-        }
-        else {
+        } else {
             Geocoder geocoder;
             List<Address> addressList = null;
             geocoder = new Geocoder(this, Locale.getDefault());
