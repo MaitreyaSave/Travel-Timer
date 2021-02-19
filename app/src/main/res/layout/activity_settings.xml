@@ -36,10 +36,26 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:textSize="20sp"
+                android:id="@+id/units_tv"
+                android:text="@string/settings_units"
+                android:layout_height="wrap_content" />
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/units_switch"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="20sp"
                 android:id="@+id/settings_lock_tv"
                 android:text="@string/settings_lock"
                 android:layout_height="wrap_content" />
-            <Switch
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/settings_lock_switch"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content" />
@@ -55,9 +71,9 @@
                 android:id="@+id/settings_notification_tv"
                 android:text="@string/settings_notification"
                 android:layout_height="wrap_content" />
-            <Switch
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/settings_notification_switch"
-                android:layout_width="80dp"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
@@ -80,7 +96,8 @@
                 android:layout_height="wrap_content"
                 />
             <TextView
-                android:layout_width="30dp"
+                android:id="@+id/km_miles_1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:text="@string/kilometer"/>
@@ -106,7 +123,8 @@
                 android:inputType="number"
                 />
             <TextView
-                android:layout_width="30dp"
+                android:id="@+id/km_miles_2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:text="@string/kilometer"/>

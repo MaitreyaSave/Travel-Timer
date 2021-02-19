@@ -10,10 +10,32 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6545c40-93cb-496d-9046-5cf76cda7aa4" name="Default" comment="- migrated to androidx&#10;- updated Google maps API key creds">
+    <list default="true" id="f6545c40-93cb-496d-9046-5cf76cda7aa4" name="Default" comment="- updated text size of `Alarm` and `Actual` distance to 18 sp&#10;- Some random stuff in app.iml and workspace.xml got updated">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_dynamicanimation_dynamicanimation_1_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_base_17_3_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_17_3_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_location_17_1_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_17_1_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_1_1_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_2_0_4_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_solver_1_1_3_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_solver_2_0_4_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_3_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_3_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_base_17_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_17_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_location_17_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_17_0_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_3_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/in/apps/maitreya/travelalarm/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/in/apps/maitreya/travelalarm/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/in/apps/maitreya/travelalarm/SettingsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/in/apps/maitreya/travelalarm/SettingsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -584,7 +606,14 @@
       <option name="project" value="LOCAL" />
       <updated>1597301741576</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="- updated text size of `Alarm` and `Actual` distance to 18 sp&#10;- Some random stuff in app.iml and workspace.xml got updated">
+      <created>1612921439670</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1612921439670</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TodoView">
@@ -608,7 +637,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/Travel-Timer" />
     </ignored-roots>
-    <MESSAGE value="Solved Repetitive Alarm bug and added Search Bar. Search functionality yet to implement :)" />
     <MESSAGE value="Basic app ready B)" />
     <MESSAGE value="Basic app ready B)&#10;Cleaned up a few comments :)" />
     <MESSAGE value="change in gradle to solve multi-dex issue" />
@@ -633,12 +661,37 @@
     <MESSAGE value="fixed stupid recycler issue -_-" />
     <MESSAGE value="removed random toasts" />
     <MESSAGE value="- migrated to androidx&#10;- updated Google maps API key creds" />
-    <option name="LAST_COMMIT_MESSAGE" value="- migrated to androidx&#10;- updated Google maps API key creds" />
+    <MESSAGE value="- updated text size of `Alarm` and `Actual` distance to 18 sp&#10;- Some random stuff in app.iml and workspace.xml got updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="- updated text size of `Alarm` and `Actual` distance to 18 sp&#10;- Some random stuff in app.iml and workspace.xml got updated" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="503" y="297" key="CommitChangelistDialog2" timestamp="1612921164489">
+    <state x="970" y="450" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog" timestamp="1613620792808">
       <screen x="0" y="0" width="3440" height="1400" />
     </state>
-    <state x="503" y="297" key="CommitChangelistDialog2/0.0.3440.1400@0.0.3440.1400" timestamp="1612921164489" />
+    <state x="970" y="450" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.3440.1400@0.0.3440.1400" timestamp="1613620792808" />
+    <state x="168" y="297" width="1010" height="1008" key="CommitChangelistDialog2" timestamp="1612921437545">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="168" y="297" width="1010" height="1008" key="CommitChangelistDialog2/0.0.3440.1400@0.0.3440.1400" timestamp="1612921437545" />
+    <state width="1587" height="397" key="GridCell.Tab.0.bottom" timestamp="1613696203737">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1587" height="397" key="GridCell.Tab.0.bottom/0.0.3440.1400@0.0.3440.1400" timestamp="1613696203737" />
+    <state width="1587" height="397" key="GridCell.Tab.0.center" timestamp="1613696203737">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1587" height="397" key="GridCell.Tab.0.center/0.0.3440.1400@0.0.3440.1400" timestamp="1613696203737" />
+    <state width="1587" height="397" key="GridCell.Tab.0.left" timestamp="1613696203736">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1587" height="397" key="GridCell.Tab.0.left/0.0.3440.1400@0.0.3440.1400" timestamp="1613696203736" />
+    <state width="1587" height="397" key="GridCell.Tab.0.right" timestamp="1613696203737">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1587" height="397" key="GridCell.Tab.0.right/0.0.3440.1400@0.0.3440.1400" timestamp="1613696203737" />
+    <state x="692" y="436" key="Vcs.Push.Dialog.v2" timestamp="1612921441447">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="692" y="436" key="Vcs.Push.Dialog.v2/0.0.3440.1400@0.0.3440.1400" timestamp="1612921441447" />
   </component>
 </project>

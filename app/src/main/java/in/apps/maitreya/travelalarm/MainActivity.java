@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     //
     Vibrator v;
     float alarm_dis, actual_dis;
+    boolean useMiles;
     int minAlarmDistance,maxAlarmDistance;
     boolean notification_flag,lock_flag,show_popup;
     static MediaPlayer mMediaPlayer;
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     Gson gson;
     SharedPreferences sp;
     String sourceString,destinationString;
+    String milesOrKm;
 
     //
     Context ctx=this;
@@ -120,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         else
             lock_view.setVisibility(View.GONE);
         //
-        if(lock_flag) {
+        if (lock_flag) {
             if (!sourceString.equals(""))
                 v1.setText(sourceString);
             if (!destinationString.equals(""))
@@ -249,8 +251,12 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             d1.setLatitude(d.latitude);
             actual_dis = s1.distanceTo(d1);
             int dis = (int) actual_dis;
-            actual_dis/=1000;
-            String distance_string=dis/1000.0+" km";
+            int dis_miles = (int) (dis * 0.621371);
+            actual_dis /= 1000;
+            String distance_string = dis/1000.0 + " " + milesOrKm;
+            if (useMiles){
+                distance_string = dis_miles/1000.0 + " " + milesOrKm;
+            }
             v3.setText(distance_string);
         } else {
             if (source == null)
@@ -412,6 +418,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         @Override
         public void onReceive(Context arg0, Intent arg1) {
             Bundle b=arg1.getBundleExtra("Location");
+            assert b != null;
             Location l= b.getParcelable("Location");
             if(l!=null)
             currentLocation=new LatLng(l.getLatitude(),l.getLongitude());
@@ -480,8 +487,9 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     }
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        alarm_dis=progress+minAlarmDistance;
-        v4.setText(""+alarm_dis+" km");
+        alarm_dis = progress+minAlarmDistance;
+        String alarm_distance = alarm_dis + " " + milesOrKm;
+        v4.setText(alarm_distance);
     }
 
     @Override
@@ -588,6 +596,9 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         notification_flag=sp.getBoolean("notif",false);
         lock_flag=sp.getBoolean("lock",false);
         show_popup=sp.getBoolean("popup",false);
+        useMiles = sp.getBoolean("useMiles", false);
+
+        updateTextViewsV3V4();
         //
         gson = new Gson();
         String json = sp.getString("source","");
@@ -599,5 +610,34 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         //
         sourceString=sp.getString("sourceS","");
         destinationString=sp.getString("destinationS","");
+    }
+
+    public void updateTextViewsV3V4(){
+        if (useMiles){
+            milesOrKm = "miles";
+        }
+        else{
+            milesOrKm = "km";
+        }
+
+        String s = (String) v3.getText();
+        String[] vals = s.split(" ");
+
+        if ((sourceString != null) && (destinationString != null)) {
+            float dis = Float.parseFloat(vals[0]);
+            vals[0] = String.valueOf(dis);
+            if (useMiles) {
+                vals[0] = String.valueOf(Math.round(dis * 621.371) / 1000d);
+            } else {
+                vals[0] = String.valueOf(Math.round(dis * 1609.34) / 1000d);
+            }
+            s = vals[0] + " " + milesOrKm;
+            v3.setText(s);
+        }
+
+        s = (String) v4.getText();
+        vals = s.split(" ");
+        s = vals[0] + " " + milesOrKm;
+        v4.setText(s);
     }
 }
